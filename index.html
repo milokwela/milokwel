@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Hearts 💗 beta 1.4.6</title>
+<title>Hearts 💗 beta 1.4.7</title>
 <meta name="description" content="Hearts — игра: лови сердечки, уворачивайся от пил, побеждай босса. Герои Полина, Игорь, Лена и Алина.">
 <meta name="theme-color" content="#000000">
 <meta name="robots" content="index,follow">
@@ -236,6 +236,11 @@ body.low{background:radial-gradient(120% 80% at 50% 0%,#2a2a2a,#000 70%)!importa
 :root[data-theme="light"] body.low{background:linear-gradient(#fff,#ffe3ee)!important}
 body.low .ch.on .cin{box-shadow:0 0 0 2px var(--k)}
 body.low .ver,body.low .thumb{box-shadow:none}
+#nwl{list-style:none;padding:0;margin:12px 0;display:grid;gap:8px;text-align:left}
+#nwl li{position:relative;padding:11px 14px 11px 20px;border-radius:18px;background:var(--tn);border:1px solid var(--bd);opacity:0;transform:translateY(10px);animation:nwIn .45s cubic-bezier(.2,.9,.3,1) forwards;animation-delay:calc(var(--k)*70ms)}
+#nwl li::before{content:'';position:absolute;left:8px;top:12px;bottom:12px;width:4px;border-radius:4px;background:var(--pri)}
+#nwl b{display:block;font-size:15px}#nwl span{font-size:13px;opacity:.75}
+@keyframes nwIn{to{opacity:1;transform:none}}#nw .dlg{max-height:86vh;overflow:auto}
 </style>
 </head>
 <body>
@@ -260,7 +265,9 @@ body.low .ver,body.low .thumb{box-shadow:none}
         <button class="li" style="--i:1" data-o="lbm" data-i="lbb"></button>
         <button class="li" style="--i:2" data-o="set" data-i="set"></button>
         <button class="li" style="--i:3" id="th" data-i="th"></button>
-        <button class="li" style="--i:4" data-o="cr" data-i="cr"></button>
+        <button class="li" style="--i:4" data-o="duel" data-i="du"></button>
+        <button class="li" style="--i:5" data-o="nw" data-i="nw"></button>
+        <button class="li" style="--i:5" data-o="cr" data-i="cr"></button>
       </aside>
       <div class="mainc">
         <div class="seg slide" id="sgMode"></div>
@@ -293,11 +300,11 @@ body.low .ver,body.low .thumb{box-shadow:none}
   <h2 id="ot"></h2><p data-i="os"></p><div class="big" id="fs">0</div>
   <input type="text" id="nick" maxlength="14" data-p="nick" autocomplete="off">
   <div class="btns"><button class="btn" id="save" data-i="save"></button><button class="btn t" id="again" data-i="again"></button><button class="btn t" id="tomenu" data-i="tomenu"></button></div>
-  <div class="note" id="sendst"></div><table class="lb" id="lb2"></table><div class="note" id="note2"></div>
+  <div class="note" id="sendst"></div><div class="note" id="duelres" style="font-weight:700;margin:6px 0"></div><table class="lb" id="lb2"></table><div class="note" id="note2"></div>
 </div></div>
 <div class="ov" id="pause"><div class="dlg who"><h2 data-i="pt"></h2><div class="btns stack"><button class="btn" id="rs" data-i="rs"></button><button class="btn t" id="rst" data-i="rst"></button><button class="btn t" id="ex" data-i="ex"></button></div></div></div>
 <div class="ov" id="lbm"><div class="dlg"><h2 data-i="lt"></h2><div class="seg" id="lbTabs"></div><table class="lb" id="lb1"></table><div class="note" id="note1"></div><div class="btns"><button class="btn t" data-x data-i="close"></button></div></div></div>
-<div class="ov" id="sk"><div class="dlg who"><h2 data-i="skt"></h2><p data-i="sks"></p><div class="skview"><button class="ar2" id="skl">‹</button><div class="skstage" id="skstage"></div><button class="ar2" id="skr">›</button></div><div class="dots" id="skdots"></div><div class="btns stack"><button class="btn" id="skpick"></button><button class="btn t" data-x data-i="done"></button></div></div></div>
+<div class="ov" id="sk"><div class="dlg who"><h2 data-i="skt"></h2><p data-i="sks"></p><div class="seg slide" id="skTabs" style="margin-bottom:8px"></div><div class="skview"><button class="ar2" id="skl">‹</button><div class="skstage" id="skstage"></div><button class="ar2" id="skr">›</button></div><div class="dots" id="skdots"></div><div id="skCols" style="display:none;gap:9px;justify-content:center;margin:6px 0 10px"></div><div class="btns stack"><button class="btn" id="skpick"></button><button class="btn t" data-x data-i="done"></button></div></div></div>
 <div class="ov" id="set"><div class="dlg"><h2 data-i="st"></h2>
   <div class="set"><label data-i="lang"></label><div class="seg" id="sgLang"></div></div>
   <div class="set"><label data-i="dev"></label><button class="ib" id="chdev" style="width:100%"></button></div>
@@ -305,6 +312,8 @@ body.low .ver,body.low .thumb{box-shadow:none}
   <div class="set"><label><span id="m1l"></span><span id="v1"></span></label><input type="range" id="s1" min="1" max="10" step="1"></div>
   <div class="set"><label><span data-i="m2"></span><span id="v2"></span></label><input type="range" id="s2" min="0.8" max="2.5" step="0.1"></div>
   <div class="btns"><button class="btn" data-x data-i="done"></button></div></div></div>
+<div class="ov" id="duel"><div class="dlg who"><h2 id="dut"></h2><p id="dup"></p><div id="dub"></div><div class="btns"><button class="btn t" id="duX"></button></div></div></div>
+<div class="ov" id="nw"><div class="dlg who"><h2 id="nwt"></h2><p id="nwp"></p><ul id="nwl"></ul><div class="btns"><button class="btn" data-x data-i="ok"></button></div></div></div>
 <div class="ov" id="cr"><div class="dlg who"><div class="av" style="--k:#ff80ab">М</div><h2 data-i="crt"></h2><p data-i="crr"></p><p data-i="crx"></p><p data-i="crx2"></p><p><b data-i="ver"></b> · <span data-i="soon"></span></p><div class="btns"><button class="btn" data-x data-i="ok"></button></div></div></div>
 
 <script>
@@ -315,15 +324,17 @@ const FB_URL='https://hearts-game-9f6f8-default-rtdb.europe-west1.firebasedataba
 const FB_KEY='AIzaSyCu0Gdjotnn-xufUt8YTrmX3jCquJ9U6t8';
 // ====================================
 const T={
-ru:{ver:'beta 1.4.6',gname:'Сердечки',auto:'Слабое устройство: включил лёгкую графику. Вернуть можно в настройках.',soon:'1.5 — в разработке…',pick:'✨ выбери героя',play:'▶ Играть',set:'⚙ Настройки',lbb:'🏆 Лидеры',cr:'💗 Создатель',th:'🌗 Тема',sk:'🎨 Скины',score:'Счёт',rec:'Рекорд',hint:'Мышь — двигать. Способность: кнопка, пробел или правый клик. Пауза: Esc.',ot:'Игра окончена 💔',win:'Победа! 🎉',tm:'Время вышло! ⏱',os:'Придумай ник и попади в таблицу лидеров',nick:'Твой ник',save:'Сохранить',again:'Ещё раз',tomenu:'В меню',lt:'🏆 Таблица лидеров',close:'Закрыть',st:'⚙ Настройки',lang:'Язык',dev:'Устройство',gfx:'Графика',low:'Низкая',high:'Высокая',ctM:'Скорость мыши',ctT:'Скорость касания',m2:'Скорость игры',done:'Готово',crt:'Милок',crr:'Создатель игры',crx:'Сделано с 💗 — чёрный, белый и розовый.',ok:'Круто!',fix:'↩ вернуть',empty:'Пока пусто — стань первым!',anon:'Аноним',ready:'готово',s:'с',end:'Конец! Счёт: ',act:'Активная',pas:'Пассивная',conf:'✔ Подтвердить',cancel:'Отмена',chg:'Сменить устройство',dvt:'Выбери устройство',dvs:'Запомню на этом устройстве. Поменять можно в настройках.',pc:'ПК · мышь',ph:'Телефон · касание',mC:'Классика',mS:'Спринт 60с',mB:'Босс',dC:'Бесконечно: лови 💗, уворачивайся от пил',dS:'60 секунд — набери как можно больше',dB:'Босс: уворачивайся от атак, лови 💗 — они ранят босса',skt:'🎨 Скины сердечек',sks:'Цвет сердечек в игре',unl:'🖤 Секретный скин открыт: розово-чёрное сердце!',pickSk:'Выбрать',picked:'✔ Выбрано',crx2:'Стараюсь делать всё лучше и лучше 💗',pt:'⏸ Пауза',rs:'▶ Продолжить',rst:'↻ Заново',ex:'⌂ Выйти в меню',lbl:'Только на этом устройстве',lbg:'Общая таблица 🌍',s0:'Герой',s1:'Красный',s2:'Белый',s3:'Золото',s4:'Лёд',s5:'Розово-чёрное',taken:'Этот ник уже занят, придумай другой',nk2:'Ник: минимум 2 символа',sent:'✔ Рекорд отправлен в общую таблицу',nobeat:'Твой рекорд выше — результат не заменён',fail:'Нет связи с сервером, попробуй позже'},
-en:{ver:'beta 1.4.6',gname:'Hearts',auto:'Slow device: switched to light graphics. You can change it in settings.',soon:'1.5 — in development…',pick:'✨ choose your hero',play:'▶ Play',set:'⚙ Settings',lbb:'🏆 Leaders',cr:'💗 Creator',th:'🌗 Theme',sk:'🎨 Skins',score:'Score',rec:'Best',hint:'Mouse to move. Ability: button, space or right click. Pause: Esc.',ot:'Game over 💔',win:'Victory! 🎉',tm:"Time's up! ⏱",os:'Pick a nickname and join the leaderboard',nick:'Your nickname',save:'Save',again:'Play again',tomenu:'Menu',lt:'🏆 Leaderboard',close:'Close',st:'⚙ Settings',lang:'Language',dev:'Device',gfx:'Graphics',low:'Low',high:'High',ctM:'Mouse speed',ctT:'Touch speed',m2:'Game speed',done:'Done',crt:'Milok',crr:'Game creator',crx:'Made with 💗 — black, white and pink.',ok:'Cool!',fix:'↩ restore',empty:'Nothing yet — be the first!',anon:'Anon',ready:'ready',s:'s',end:'Game over! Score: ',act:'Active',pas:'Passive',conf:'✔ Confirm',cancel:'Cancel',chg:'Change device',dvt:'Choose your device',dvs:'I will remember it on this device. You can change it in settings.',pc:'PC · mouse',ph:'Phone · touch',mC:'Classic',mS:'Sprint 60s',mB:'Boss',dC:'Endless: catch 💗, dodge the saws',dS:'60 seconds — score as much as you can',dB:'Boss: dodge attacks, catch 💗 to hurt the boss',skt:'🎨 Heart skins',sks:'Heart color in game',unl:'🖤 Secret skin unlocked: pink-black heart!',pickSk:'Select',picked:'✔ Selected',crx2:'I keep trying to make it better and better 💗',pt:'⏸ Paused',rs:'▶ Resume',rst:'↻ Restart',ex:'⌂ Exit to menu',lbl:'Only on this device',lbg:'Global leaderboard 🌍',s0:'Hero',s1:'Red',s2:'White',s3:'Gold',s4:'Ice',s5:'Pink-black',taken:'This nickname is taken, pick another',nk2:'Nickname: at least 2 characters',sent:'✔ Record sent to the global table',nobeat:'Your record is higher — not replaced',fail:'No connection, try again later'}};
+ru:{ver:'beta 1.4.7',gname:'Сердечки',auto:'Слабое устройство: включил лёгкую графику. Вернуть можно в настройках.',soon:'1.5 — в разработке…',pick:'✨ выбери героя',play:'▶ Играть',set:'⚙ Настройки',lbb:'🏆 Лидеры',cr:'💗 Создатель',th:'🌗 Тема',sk:'🎨 Скины',nw:'Что нового',du:'Дуэль онлайн',score:'Счёт',rec:'Рекорд',hint:'Мышь — двигать. Способность: кнопка, пробел или правый клик. Пауза: Esc.',ot:'Игра окончена 💔',win:'Победа! 🎉',tm:'Время вышло! ⏱',os:'Придумай ник и попади в таблицу лидеров',nick:'Твой ник',save:'Сохранить',again:'Ещё раз',tomenu:'В меню',lt:'🏆 Таблица лидеров',close:'Закрыть',st:'⚙ Настройки',lang:'Язык',dev:'Устройство',gfx:'Графика',low:'Низкая',high:'Высокая',ctM:'Скорость мыши',ctT:'Скорость касания',m2:'Скорость игры',done:'Готово',crt:'Милок',crr:'Создатель игры',crx:'Сделано с 💗 — чёрный, белый и розовый.',ok:'Круто!',fix:'↩ вернуть',empty:'Пока пусто — стань первым!',anon:'Аноним',ready:'готово',s:'с',end:'Конец! Счёт: ',act:'Активная',pas:'Пассивная',conf:'✔ Подтвердить',cancel:'Отмена',chg:'Сменить устройство',dvt:'Выбери устройство',dvs:'Запомню на этом устройстве. Поменять можно в настройках.',pc:'ПК · мышь',ph:'Телефон · касание',mC:'Классика',mS:'Спринт 60с',mB:'Босс',dC:'Бесконечно: лови 💗, уворачивайся от пил',dS:'60 секунд — набери как можно больше',dB:'Босс: уворачивайся от атак, лови 💗 — они ранят босса',skt:'🎨 Скины сердечек',sks:'Цвет сердечек в игре',unl:'🖤 Секретный скин открыт: розово-чёрное сердце!',pickSk:'Выбрать',picked:'✔ Выбрано',crx2:'Стараюсь делать всё лучше и лучше 💗',pt:'⏸ Пауза',rs:'▶ Продолжить',rst:'↻ Заново',ex:'⌂ Выйти в меню',lbl:'Только на этом устройстве',lbg:'Общая таблица 🌍',s0:'Герой',s1:'Красный',s2:'Белый',s3:'Золото',s4:'Лёд',s5:'Розово-чёрное',s6:'Розовая',s7:'Мятная',s8:'Фиолетовая',s9:'Оранжевая',s10:'Бирюзовая',taken:'Этот ник уже занят, придумай другой',nk2:'Ник: минимум 2 символа',sent:'✔ Рекорд отправлен в общую таблицу',nobeat:'Твой рекорд выше — результат не заменён',fail:'Нет связи с сервером, попробуй позже'},
+en:{ver:'beta 1.4.7',gname:'Hearts',auto:'Slow device: switched to light graphics. You can change it in settings.',soon:'1.5 — in development…',pick:'✨ choose your hero',play:'▶ Play',set:'⚙ Settings',lbb:'🏆 Leaders',cr:'💗 Creator',th:'🌗 Theme',sk:'🎨 Skins',nw:'What\'s new',du:'Online duel',score:'Score',rec:'Best',hint:'Mouse to move. Ability: button, space or right click. Pause: Esc.',ot:'Game over 💔',win:'Victory! 🎉',tm:"Time's up! ⏱",os:'Pick a nickname and join the leaderboard',nick:'Your nickname',save:'Save',again:'Play again',tomenu:'Menu',lt:'🏆 Leaderboard',close:'Close',st:'⚙ Settings',lang:'Language',dev:'Device',gfx:'Graphics',low:'Low',high:'High',ctM:'Mouse speed',ctT:'Touch speed',m2:'Game speed',done:'Done',crt:'Milok',crr:'Game creator',crx:'Made with 💗 — black, white and pink.',ok:'Cool!',fix:'↩ restore',empty:'Nothing yet — be the first!',anon:'Anon',ready:'ready',s:'s',end:'Game over! Score: ',act:'Active',pas:'Passive',conf:'✔ Confirm',cancel:'Cancel',chg:'Change device',dvt:'Choose your device',dvs:'I will remember it on this device. You can change it in settings.',pc:'PC · mouse',ph:'Phone · touch',mC:'Classic',mS:'Sprint 60s',mB:'Boss',dC:'Endless: catch 💗, dodge the saws',dS:'60 seconds — score as much as you can',dB:'Boss: dodge attacks, catch 💗 to hurt the boss',skt:'🎨 Heart skins',sks:'Heart color in game',unl:'🖤 Secret skin unlocked: pink-black heart!',pickSk:'Select',picked:'✔ Selected',crx2:'I keep trying to make it better and better 💗',pt:'⏸ Paused',rs:'▶ Resume',rst:'↻ Restart',ex:'⌂ Exit to menu',lbl:'Only on this device',lbg:'Global leaderboard 🌍',s0:'Hero',s1:'Red',s2:'White',s3:'Gold',s4:'Ice',s5:'Pink-black',s6:'Pink',s7:'Mint',s8:'Violet',s9:'Orange',s10:'Cyan',taken:'This nickname is taken, pick another',nk2:'Nickname: at least 2 characters',sent:'✔ Record sent to the global table',nobeat:'Your record is higher — not replaced',fail:'No connection, try again later'}};
 const CH={
  polina:{img:'photos/polina.jpg',c:'#ff80ab',cd:14,dur:6,t:'a',ru:{n:'Полина',d:'Щит 6 сек · перезарядка 14 сек',ab:'🛡 Щит'},en:{n:'Polina',d:'Shield 6s · cooldown 14s',ab:'🛡 Shield'}},
  igor:{img:'photos/igor.jpg',c:'#e8e8f0',cd:14,dur:7,t:'a',ru:{n:'Игорь',d:'Замедление 7 сек · перезарядка 14 сек',ab:'⏳ Замедление'},en:{n:'Igor',d:'Slow-mo 7s · cooldown 14s',ab:'⏳ Slow-mo'}},
  lena:{img:'photos/lena.jpg',c:'#ff3d71',cd:0,dur:0,t:'p',ru:{n:'Лена',d:'+1 сердце каждые 20 очков',ab:'💖 Пассивка: +❤ / 20'},en:{n:'Lena',d:'+1 heart every 20 points',ab:'💖 Passive: +❤ / 20'}},
- alina:{img:'photos/alina.jpg',c:'#ffc857',cd:9,dur:10,after:1,t:'a',ru:{n:'Алина',d:'Пистолет 10 сек: убивает пилы · перезарядка 9 сек',ab:'🔫 Пистолет'},en:{n:'Alina',d:'Pistol 10s: kills saws · cooldown 9s',ab:'🔫 Pistol'}}
+ alina:{img:'photos/alina.jpg',c:'#ffc857',cd:9,dur:10,after:1,t:'a',ru:{n:'Алина',d:'Пистолет 10 сек: убивает пилы · перезарядка 9 сек',ab:'🔫 Пистолет'},en:{n:'Alina',d:'Pistol 10s: kills saws · cooldown 9s',ab:'🔫 Pistol'}},
+ bogdan:{img:'photos/bogdan.jpg',c:'#7fd8ff',cd:0,dur:0,t:'p',soon:1,ru:{n:'Богдан',d:'Скоро появится…',ab:'🔒 Скоро'},en:{n:'Bogdan',d:'Coming soon…',ab:'🔒 Soon'}}
 };
-const SK=[['def',null],['red','#ff3b5c'],['wht','#ffffff'],['gld','#ffd54f'],['blu','#7fd8ff'],['rb','rb']];
+const SK=[['def',null],['red','#ff3b5c'],['wht','#ffffff'],['gld','#ffd54f'],['blu','#7fd8ff'],['rb','rb'],['bw','bw','Чёрно-белое','Black & white'],['sun','sun','Закат','Sunset'],['oce','oce','Океан','Ocean'],['cnd','cnd','Сладкая вата','Cotton candy'],['grn','#69f0ae','Мятная','Mint'],['vio','#b388ff','Фиолетовая','Violet']];
+const GR={rb:['#ff80ab','#6b1a3d','#000'],bw:['#fff','#111'],sun:['#ffd54f','#ff3b5c'],oce:['#18ffff','#2979ff'],cnd:['#ff80ab','#b388ff']};
 const MK={classic:'mC',sprint:'mS',boss:'mB'},MD={classic:'dC',sprint:'dS',boss:'dB'};
 const HEART='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z';
 const HP=new Path2D(HEART);
@@ -345,7 +356,7 @@ function renderMode(){const el=$('sgMode');
  if(!el.firstChild){el.innerHTML='<i class="thumb"></i>';Object.keys(MK).forEach(k=>{const b=document.createElement('button');b.className='sgb';b.dataset.v=k;b.onclick=()=>setMode(k);el.appendChild(b)})}
  el.querySelectorAll('.sgb').forEach(b=>{b.innerHTML=`<span class="mi">${MI[b.dataset.v]}</span>${tx(MK[b.dataset.v])}`;b.classList.toggle('on',b.dataset.v===mode)});moveThumb()}
 function moveThumb(){const el=$('sgMode'),b=el.querySelector('.sgb.on'),t=el.querySelector('.thumb');if(!b||!t||!el.clientWidth)return;t.style.width=b.offsetWidth+'px';t.style.transform=`translateX(${b.offsetLeft-4}px)`}
-function setMode(v){if(v===mode)return;mode=v;LS.s('mode',v);$('best').textContent=bests[mode]||0;const d=$('mdesc');d.textContent=tx(MD[v]);d.classList.remove('swap');void d.offsetWidth;d.classList.add('swap');start(true);renderMode()}
+function setMode(v){if(v===mode)return;mode=v;setTimeout(updRR,0);LS.s('mode',v);$('best').textContent=bests[mode]||0;const d=$('mdesc');d.textContent=tx(MD[v]);d.classList.remove('swap');void d.offsetWidth;d.classList.add('swap');start(true);renderMode()}
 function renderSegs(){
  renderMode();
  seg($('sgLang'),[['ru','Русский'],['en','English']],LG,v=>{LG=v;LS.s('lg',v);applyLang()});
@@ -393,7 +404,7 @@ function nearest(){let b=cards()[0],m=1e9;cards().forEach(c=>{const q=Math.abs(d
 function hl(){const b=nearest();cards().forEach(c=>c.classList.toggle('on',c===b));return b}
 function renderCards(){sc.innerHTML='';Object.entries(CH).forEach(([k,o])=>{const b=document.createElement('button'),L=o[LG];b.className='ch'+(k===cur?' on':'');b.dataset.k=k;b.style.setProperty('--k',o.c);
  let sp='';for(let i=0;i<6;i++)sp+=`<i class="sp" style="--x:${10+i*15}%;--d:${i*.18}s"></i>`;
- b.innerHTML=`<div class="cin">${sp}<div class="av"><span>${L.n[0]}</span><img src="${o.img}" alt="" onerror="this.remove()"></div><b>${L.n}</b><small>${L.d}</small><div class="tags"><span>${o.t==='a'?tx('act'):tx('pas')}</span><span>${o.cd?'⏱ '+o.cd+tx('s'):'∞'}</span></div></div>`;
+ b.innerHTML=`<div class="cin">${sp}<div class="av"><span>${L.n[0]}</span><img src="${o.img}" alt="" onerror="this.remove()"></div><b>${L.n}</b><small>${L.d}</small><div class="tags"><span>${o.soon?'🔒':o.t==='a'?tx('act'):tx('pas')}</span><span>${o.cd?'⏱ '+o.cd+tx('s'):'∞'}</span></div></div>`;
  const cin=b.firstChild;
  b.onclick=()=>{goTo(b,'smooth');if(k==='lena')lenaTap()};
  b.onpointermove=e=>{if(low||e.pointerType!=='mouse')return;const r=cin.getBoundingClientRect(),px=(e.clientX-r.left)/r.width,py=(e.clientY-r.top)/r.height;cin.style.transform=`perspective(700px) rotateX(${(.5-py)*16}deg) rotateY(${(px-.5)*16}deg)`;cin.style.setProperty('--mx',px*100+'%');cin.style.setProperty('--my',py*100+'%')};
@@ -416,19 +427,93 @@ function applyLang(){document.documentElement.lang=LG;document.title=tx('gname')
  renderCards();setTimeout(()=>{centerCur('instant');cover();hl()},30);setName(CH[cur][LG].n);$('desc').textContent=CH[cur][LG].d;$('abt').textContent=CH[cur][LG].ab;bgLetters();renderSegs();renderSkStage(0);aT='';aW='';ui()}
 // ----- skins (preview + swipe)
 let skIdx=Math.max(0,SK.findIndex(q=>q[0]===skin)),skx=null;
+let skTab=0,skMv=null,shp=LS.g('shape','c'),saw=LS.g('saw','d'),hcol=LS.g('hcol',''),scol=LS.g('scol','');
+const SHP=[['c',0,'Круг','Circle'],['sat',0,'Сатурн','Saturn'],['t',0,'Треугольник','Triangle'],['q',0,'Квадрат','Square'],['d',0,'Ромб','Diamond'],['h',0,'Шестиугольник','Hexagon'],['s',0,'Звезда','Star']],
+ SW=[['d',0,'Обычные','Default'],['r','#ff3b5c','Красные','Red'],['b','#7fd8ff','Ледяные','Icy'],['g','#69f0ae','Ядовитые','Toxic'],['y','#ffd54f','Золотые','Golden'],['sp','#e0e0e0','Шипы','Thorns','t'],['ar','#ff3b5c','Стрела','Arrow','a'],['ar2','#7fd8ff','Ледяная стрела','Ice arrow','a'],['sx','#e0e0e0','Сюрикен','Shuriken','x'],['sf','#7fd8ff','Снежинка','Snowflake','f'],['sg','#ffc857','Шестерёнка','Gear','g']],
+ HC=['#ff80ab','#ff3b5c','#ffc857','#69f0ae','#7fd8ff','#b388ff','#ffffff'];
+const LST=()=>skTab===0?SK:skTab===1?SHP:SW,CURID=()=>skTab===0?skin:skTab===1?shp:saw;
+function mkTabs(el,lb,cb){el.innerHTML='<i class="thumb"></i>'+lb.map((l,i)=>'<button class="sgb'+(i?'':' on')+'">'+l+'</button>').join('');const th=el.firstChild,bs=[...el.querySelectorAll('.sgb')],mv=i=>{const b=bs[i];th.style.width=b.offsetWidth+'px';th.style.transform='translateX('+(b.offsetLeft-4)+'px)';bs.forEach((z,j)=>z.classList.toggle('on',j===i))};bs.forEach((b,i)=>b.onclick=()=>{mv(i);cb(i)});setTimeout(()=>mv(0),80);return mv}
+const pth=P=>'M'+P.map(q=>q.join(' ')).join('L')+'Z';
+function shPts(id,r){const n={t:3,q:4,d:4,h:6,s:10}[id]||0,rot={t:-1.5708,q:.7854,d:0,h:0,s:-1.5708}[id]||0;return Array.from({length:n},(_,i)=>{const R=id==='s'&&i%2?r*.45:r,q=rot+i*(id==='s'?3.1416/5:6.2832/n);return[Math.cos(q)*R,Math.sin(q)*R]})}
+const hC=()=>hcol||CH[cur].c;
+const shSvg=id=>{const c=hC();return`<svg viewBox="-12 -12 24 24">${id==='c'?`<circle r="9" fill="${c}" stroke="#fff" stroke-width=".8"/>`:id==='sat'?`<ellipse rx="11.5" ry="3.6" transform="rotate(-22)" fill="none" stroke="${c}" stroke-width="1.6"/><circle r="6.2" fill="${c}" stroke="#fff" stroke-width=".7"/><path d="M-9.5 2.6A11.5 3.6-22 0 0 9.5-2.6" transform="rotate(-22)" fill="none" stroke="#fff" stroke-width=".9" opacity=".8"/>`:`<path d="${pth(shPts(id,10))}" fill="${c}" stroke="#fff" stroke-width=".8"/>`}</svg>`};
+const SQ={x:[4,.3],f:[6,.22],g:[8,.8]},star=(n,ri,r,a)=>Array.from({length:2*n},(_,i)=>{const q=a+i*Math.PI/n,R=i%2?r*ri:r;return[Math.cos(q)*R,Math.sin(q)*R]});
+const sawP=(st,r)=>SQ[st]?pth(star(SQ[st][0],SQ[st][1],r,0)):st==='a'?'M12 0L3-5V-2L-11-2V2L3 2V5Z':st==='t'?pth(Array.from({length:24},(_,i)=>{const k=i%3,q=(i-k)/3*.7854+(k?(k===1?-.3:.3):0);return k===1?[Math.cos(q+.3)*r,Math.sin(q+.3)*r]:[Math.cos(q)*r*.35,Math.sin(q)*r*.35]})):pth(Array.from({length:16},(_,i)=>{const q=i*Math.PI/8,R=i%2?r*.5:r;return[Math.cos(q)*R,Math.sin(q)*R]}));
+function sawCol(l,c){if(scol)return scol;const q=SW.find(z=>z[0]===saw);return!q||saw==='d'?(l?'#c2185b':c):q[1]}
+function drawSaw(i,l,c){const q=SW.find(z=>z[0]===saw)||SW[0],st=q[4];x.strokeStyle=sawCol(l,c);
+ if(st==='a'){x.save();x.translate(i.x,i.y);x.rotate(Math.atan2(i.vy||1,i.vx||0));x.beginPath();[[26,0],[4,-10],[4,-4],[-22,-4],[-22,4],[4,4],[4,10]].forEach((p,k)=>x[k?'lineTo':'moveTo'](p[0],p[1]));x.closePath();x.fill();x.stroke();x.restore()}
+ else if(st==='t'){x.beginPath();for(let k=0;k<8;k++){const a=k*.7854+i.a;x.lineTo(i.x+Math.cos(a-.3)*8,i.y+Math.sin(a-.3)*8);x.lineTo(i.x+Math.cos(a)*26,i.y+Math.sin(a)*26);x.lineTo(i.x+Math.cos(a+.3)*8,i.y+Math.sin(a+.3)*8)}x.closePath();x.fill();x.stroke()}
+ else if(SQ[st]){x.beginPath();star(SQ[st][0],SQ[st][1],20,i.a).forEach((q,k)=>x[k?'lineTo':'moveTo'](i.x+q[0],i.y+q[1]));x.closePath();x.fill();x.stroke()}
+ else spike(i.x,i.y,20,i.a)}
+function drawShape(cx,cy,col){if(shp==='c')return;x.save();x.translate(cx,cy);x.strokeStyle='#fff';x.lineWidth=2;if(shp==='sat'){x.strokeStyle=col;x.beginPath();x.ellipse(0,0,24,7,-.38,0,7);x.stroke();x.fillStyle=col;x.beginPath();x.arc(0,0,11,0,7);x.fill();x.strokeStyle='#fff';x.lineWidth=1.5;x.beginPath();x.ellipse(0,0,24,7,-.38,3.5,6.2);x.stroke()}else{x.beginPath();shPts(shp,15).forEach((q,k)=>x[k?'lineTo':'moveTo'](q[0],q[1]));x.closePath();x.fillStyle=col;x.fill();x.stroke()}x.restore()}
+// ----- сброс рекорда (классик)
+$('mdesc').insertAdjacentHTML('afterend','<button class="btn t" id="rrec" style="display:none;margin:6px auto 0">🗑 Сбросить рекорд</button>');
+function updRR(){$('rrec').style.display=''}updRR();
+$('rrec').onclick=()=>{if(confirm('Сбросить рекорд в режиме «'+tx(MK[mode])+'» на этом устройстве?')){bests[mode]=0;LS.s('bests',bests);ui()}};
+// ----- онлайн
+const ONL=document.createElement('div');ONL.style.cssText='position:fixed;top:calc(env(safe-area-inset-top,0px) + 6px);right:10px;z-index:30;font:600 12px Roboto,sans-serif;padding:3px 9px;border-radius:12px;background:rgba(0,0,0,.5);color:#fff;pointer-events:none;display:none';document.body.appendChild(ONL);
+async function pingOnl(){if(document.hidden||!FBON())return;try{const a=await fbTok(),now=Date.now();await fetch(FB_URL+'/online/'+a.uid+'.json?auth='+a.t,{method:'PUT',body:String(now)});const q=await fetch(FB_URL+'/online.json?orderBy=%22$value%22&startAt='+(now-45000)),o=await q.json();ONL.textContent='🟢 '+(o?Object.keys(o).length:1)+(LG==='ru'?' онлайн':' online');ONL.style.display=''}catch(e){ONL.style.display='none'}}
+setTimeout(()=>{pingOnl();setInterval(pingOnl,20000)},1500);
+// ----- что нового
+// ----- дуэль онлайн (Firebase: комната на двоих, экран соперника в реальном времени)
+let DU=null,duES=null,preMode=null;
+const duL=(a,b)=>LG==='ru'?a:b,duAL='ABCDEFGHJKMNPQRSTUVWXYZ23456789',duEsc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])),
+ duIS='width:100%;box-sizing:border-box;padding:12px 16px;border-radius:100px;border:1px solid var(--bd);background:var(--tn);color:var(--txt);font:inherit;margin:6px 0;outline:0',
+ duCv=document.createElement('canvas');duCv.width=duCv.height=150;duCv.style.cssText='position:fixed;top:calc(env(safe-area-inset-top,0px) + 34px);right:10px;z-index:25;border-radius:14px;border:1px solid var(--bd);background:#000;display:none;pointer-events:none';document.body.appendChild(duCv);
+const duCx=duCv.getContext('2d');
+async function duH(p,m,b){const a=await fbTok(),r=await fetch(FB_URL+'/rooms/'+p+'.json?auth='+a.t,{method:m,body:b==null?undefined:JSON.stringify(b)});if(!r.ok)throw 0;return r.json()}
+function duOpen(){$('dut').textContent=duL('Дуэль онлайн','Online duel');$('dup').textContent=duL('Играйте классику одновременно и смотрите, как играет соперник','Play Classic at the same time and watch your opponent live');$('duX').textContent=duL('Закрыть','Close');if(!FBON()){$('dub').textContent=duL('Нужно подключить общую таблицу','Shared table is not set up');return}duRender()}
+$('duX').onclick=()=>{if(!(DU&&DU.run))duStop();close($('duel'))};
+function duRender(){const b=$('dub');if(!FBON())return;const t=DU&&DU.t||{},ps=t.p?Object.entries(t.p):[];
+ if(!DU){b.innerHTML=`<input id="duN" maxlength="14" placeholder="${duL('Твой ник','Your nickname')}" value="${duEsc(regNk()||LS.g('nick',''))}" style="${duIS}"><button class="btn" id="duM" style="width:100%;margin:6px 0">${duL('Создать комнату','Create room')}</button><div class="note">${duL('или войди по коду друга','or join with a friend\'s code')}</div><input id="duC" maxlength="4" placeholder="ABCD" style="${duIS};text-align:center;text-transform:uppercase;letter-spacing:6px"><button class="btn t" id="duJ" style="width:100%">${duL('Войти','Join')}</button>`;$('duM').onclick=()=>duGo(1);$('duJ').onclick=()=>duGo(0);return}
+ const host=t.m&&t.m.h===DU.uid;b.innerHTML=`<div class="note">${duL('Код комнаты','Room code')}</div><div style="font-size:44px;font-weight:800;letter-spacing:8px;color:var(--pri)">${DU.c}</div><div style="margin:10px 0;line-height:1.7">${ps.map(([k,v])=>'<div>'+(k===DU.uid?'● ':'○ ')+duEsc(v.n||'?')+'</div>').join('')}</div>${host?`<button class="btn" id="duS" ${ps.length<2?'disabled':''} style="width:100%">${ps.length<2?duL('Ждём соперника…','Waiting for opponent…'):duL('Начать','Start')}</button>`:`<div class="note">${duL('Ждём, пока хозяин начнёт…','Waiting for the host…')}</div>`}`;if(host)$('duS').onclick=duStart}
+async function duGo(cr){const n=$('duN').value.replace(BAD,'').trim().slice(0,14);if(n.length<2){toast(tx('nk2'));return}let c=cr?'':$('duC').value.toUpperCase().trim();
+ try{const a=await fbTok();
+  if(cr){for(let i=0;i<4;i++){c=Array.from({length:4},()=>duAL[Math.random()*duAL.length|0]).join('');if(!(await duH(c+'/m','GET')))break}await duH(c+'/m','PUT',{h:a.uid,st:'w',t:Date.now()})}
+  else if(c.length!==4||!(await duH(c+'/m','GET'))){toast(duL('Комната не найдена','Room not found'));return}
+  await duH(c+'/p/'+a.uid,'PUT',{n});LS.s('nick',n);DU={c,uid:a.uid,t:{},go:0,run:0,my:null};duListen()}
+ catch(e){toast(cr?tx('fail'):duL('Не удалось войти (комната полна?)','Could not join (room full?)'))}}
+function duSet(k,d){if(!k.length){DU.t=d||{};return}let o=DU.t;for(let i=0;i<k.length-1;i++)o=o[k[i]]=o[k[i]]||{};if(d==null)delete o[k[k.length-1]];else o[k[k.length-1]]=d}
+async function duListen(){const a=await fbTok();duES=new EventSource(FB_URL+'/rooms/'+DU.c+'.json?auth='+a.t);
+ const f=ev=>{if(!DU)return;const m=JSON.parse(ev.data);if(!m)return;const k=m.path.split('/').filter(Boolean);if(ev.type==='patch')Object.keys(m.data||{}).forEach(q=>duSet(k.concat(q),m.data[q]));else duSet(k,m.data);duUpd()};
+ duES.addEventListener('put',f);duES.addEventListener('patch',f);duRender()}
+async function duStart(){try{await duH(DU.c+'/m','PUT',{h:DU.uid,st:'g',t:Date.now()})}catch(e){toast(tx('fail'))}}
+function duUpd(){if(!DU)return;const t=DU.t,o=Object.entries(t.p||{}).find(([k])=>k!==DU.uid),op=o&&o[1];
+ if($('duel').classList.contains('show'))duRender();
+ if(t.m&&t.m.st==='g'&&!DU.go){DU.go=1;duCount()}
+ if(DU.run&&op)duDraw(op.s,op.n||'');
+ const rs=$('duelres');if(DU.my!=null&&rs)rs.textContent=op&&op.d!=null?(DU.my>op.d?duL('Победа! ','Victory! '):DU.my<op.d?duL('Поражение. ','Defeat. '):duL('Ничья. ','Draw. '))+DU.my+' : '+op.d+' — '+(op.n||''):duL('Ждём, пока соперник закончит…','Waiting for the opponent to finish…')}
+function duCount(){close($('duel'));let n=3;const tk=()=>{if(!DU)return;if(n>0){toast(String(n--));setTimeout(tk,1000)}else{preMode=mode;mode='classic';ui();view('game');start(false);DU.run=1;duCv.style.display='';duDraw('','')}};tk()}
+function duDraw(s,n){const v=s?String(s).split(',').map(Number):[];duCx.fillStyle='#050505';duCx.fillRect(0,0,150,150);if(v.length<6)return;const q=Math.min(150/v[0],150/v[1]);duCx.save();duCx.translate((150-v[0]*q)/2,(150-v[1]*q)/2);duCx.scale(q,q);duCx.strokeStyle='#333';duCx.strokeRect(0,0,v[0],v[1]);for(let i=6;i+2<v.length;i+=3){duCx.fillStyle=v[i+2]===1?'#ff3b5c':'#ff80ab';duCx.beginPath();duCx.arc(v[i],v[i+1],v[i+2]===1?14:10,0,7);duCx.fill()}duCx.fillStyle='#7fd8ff';duCx.beginPath();duCx.arc(v[2],v[3],16,0,7);duCx.fill();duCx.restore();duCx.fillStyle='#fff';duCx.font='bold 12px sans-serif';duCx.fillText(n+' · '+v[4]+' ♥'+v[5],6,14)}
+setInterval(async()=>{if(!DU||!DU.run||!run||DU.fl)return;DU.fl=1;try{const a=await fbTok(),it=items.slice(0,45),s=[W,H,p.x|0,p.y|0,score,lives].concat(...it.map(i=>[i.x|0,i.y|0,i.orb?2:i.bad?1:0])).join(',');await fetch(FB_URL+'/rooms/'+DU.c+'/p/'+DU.uid+'/s.json?auth='+a.t,{method:'PUT',body:JSON.stringify(s)})}catch(e){}if(DU)DU.fl=0},140);
+function duEnd(){if(!DU||!DU.run)return;DU.run=0;DU.my=score;fbTok().then(a=>fetch(FB_URL+'/rooms/'+DU.c+'/p/'+DU.uid+'/d.json?auth='+a.t,{method:'PUT',body:JSON.stringify(score)})).catch(()=>{});setTimeout(duUpd,50)}
+function duStop(){if(!DU)return;if(duES)duES.close();duES=null;duCv.style.display='none';const m=preMode;preMode=null;DU=null;const r=$('duelres');if(r)r.textContent='';if(m){mode=m;ui();if(m!=='classic')start(true)}}
+[$('tomenu'),$('again'),$('ex')].forEach(b=>b.addEventListener('click',duStop));
+const NW={ru:[['Дуэль онлайн','Создай комнату, отправь код другу и играйте классику одновременно. Сверху виден экран соперника'],['Пилы','Новые формы: сюрикен, снежинка, шестерёнка, шипы, стрела. Цвет можно выбрать'],['Герой','Сатурн с кольцами, фигуры и выбор цвета'],['Сердечки','Двухцветные скины: чёрно-белое, закат, океан, сладкая вата'],['Босс','4 фазы и проценты здоровья'],['Рекорды','Сброс рекорда в каждом режиме'],['Онлайн','Сверху видно, сколько игроков сейчас в игре'],['Богдан','Скоро появится'],['Исправили мелкие ошибки','']],en:[['Online duel','Create a room, share the code and play Classic at the same time. Your opponent\'s screen is shown on top'],['Saws','New shapes: shuriken, snowflake, gear, thorns, arrow. Pick a color'],['Hero','Saturn with rings, shapes and colors'],['Hearts','Two-color skins: black & white, sunset, ocean, cotton candy'],['Boss','4 phases and health %'],['Records','Reset your record in every mode'],['Online','See how many players are in the game'],['Bogdan','Coming soon'],['Fixed minor bugs','']]};
+function fillNw(){const r=LG==='ru';$('nwt').textContent=r?'Что нового':'What\'s new';$('nwp').textContent=r?'Версия 1.4.7 beta':'Version 1.4.7 beta';$('nwl').innerHTML=NW[LG].map((t,k)=>'<li style="--k:'+k+'"><b>'+t[0]+'</b>'+(t[1]?'<span>'+t[1]+'</span>':'')+'</li>').join('')}
+setTimeout(()=>{if(LS.g('seen','')!=='1.4.7b'&&!$('dev').classList.contains('show')){LS.s('seen','1.4.7b');open('nw')}},900);
+
 const HRT=(fill,stk,defs)=>`<svg viewBox="0 0 24 24">${defs?'<defs><linearGradient id="rbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff80ab"/><stop offset=".55" stop-color="#6b1a3d"/><stop offset="1" stop-color="#000"/></linearGradient></defs>':''}<path d="${HEART}" fill="${fill}" stroke="${stk}" stroke-width=".5"/></svg>`;
-function renderSkStage(dir){const st=$('skstage');if(!st)return;const id=SK[skIdx][0],lock=id==='rb'&&!unl,eq=skin===id;
- const f=lock?'#555':id==='def'?CH[cur].c:id==='rb'?'url(#rbg)':SK[skIdx][1],stk=id==='rb'&&!lock?'#ff80ab':'rgba(0,0,0,.4)';
- st.innerHTML=`<div class="skhe" style="--d:${(dir||0)*60}px"><div class="big3">${HRT(f,stk,id==='rb'&&!lock)}<span class="mini m1">${HRT(f,stk)}</span><span class="mini m2">${HRT(f,stk)}</span></div><b>${lock?'🔒 ???':tx('s'+skIdx)}</b></div>`;
- $('skdots').innerHTML=SK.map((q,i)=>`<i class="${i===skIdx?'on':''}"></i>`).join('');
+const hv=id=>GR[id]?`<svg viewBox="0 0 24 24"><defs><linearGradient id="g${id}" x1="0" y1="0" x2="1" y2="1">${GR[id].map((c,k,a)=>`<stop offset="${k/(a.length-1)}" stop-color="${c}"/>`).join('')}</linearGradient></defs><path d="${HEART}" fill="url(#g${id})" stroke="rgba(255,255,255,.6)" stroke-width=".5"/></svg>`:'';
+function renderSkStage(dir){const st=$('skstage');if(!st)return;const L=LST(),q=L[skIdx],id=q[0],eq=CURID()===id,ru=LG==='ru';let lock=0,v,nm;
+ if(skTab===0){lock=id==='rb'&&!unl;v=lock?HRT('#555','rgba(0,0,0,.4)'):GR[id]?hv(id):HRT(id==='def'?CH[cur].c:q[1],'rgba(0,0,0,.4)');nm=q[2]?q[ru?2:3]:tx('s'+skIdx)}
+ else if(skTab===1){v=shSvg(id);nm=q[ru?2:3]}
+ else{v=`<svg viewBox="-13 -13 26 26"><path d="${sawP(q[4],11)}" fill="#000" stroke="${scol||(id==='d'?CH[cur].c:q[1])}" stroke-width="1.2"/></svg>`;nm=q[ru?2:3]}
+ const T3=ru?[['Скины сердечек','Цвет сердечек в игре'],['Скин героя','Форма и цвет героя'],['Скины пил','Как выглядят пилы']]:[['Heart skins','Heart color in game'],['Hero skin','Hero shape and color'],['Saw skins','How saws look']];
+ const h=$('sk').querySelector('h2'),pp=$('sk').querySelector('p');h.textContent='🎨 '+T3[skTab][0];pp.textContent=T3[skTab][1];
+ st.innerHTML=`<div class="skhe" style="--d:${(dir||0)*60}px"><div class="big3">${v}<span class="mini m1">${v}</span><span class="mini m2">${v}</span></div><b>${lock?'🔒 ???':nm}</b></div>`;
+ $('skdots').innerHTML=L.map((_,k)=>`<i class="${k===skIdx?'on':''}"></i>`).join('');
+ const cs=$('skCols'),cc=skTab===1?hcol:scol;cs.style.display=skTab?'flex':'none';cs.innerHTML=skTab?HC.map(c=>`<button data-c="${c}" style="width:30px;height:30px;border-radius:50%;border:0;background:${c};cursor:pointer;transition:transform .25s;transform:scale(${cc===c?1.25:1});box-shadow:${cc===c?'0 0 0 3px var(--pri)':'none'}"></button>`).join(''):'';
  const b=$('skpick');b.disabled=lock||eq;b.textContent=lock?'🔒 ???':eq?tx('picked'):tx('pickSk')}
-function skMove(d){skIdx=(skIdx+d+SK.length)%SK.length;renderSkStage(d)}
+$('skCols').onclick=e=>{const c=e.target.dataset.c;if(!c)return;if(skTab===1){hcol=hcol===c?'':c;LS.s('hcol',hcol)}else{scol=scol===c?'':c;LS.s('scol',scol)}renderSkStage(0)};
+function skMove(d){const n=LST().length;skIdx=(skIdx+d+n)%n;renderSkStage(d)}
 $('skl').onclick=()=>skMove(-1);$('skr').onclick=()=>skMove(1);
-$('skpick').onclick=()=>{const id=SK[skIdx][0];if(id==='rb'&&!unl)return;skin=id;LS.s('skin',id);renderSkStage(0)};
+$('skpick').onclick=()=>{const id=LST()[skIdx][0];if(skTab===0){if(id==='rb'&&!unl)return;skin=id;LS.s('skin',id)}else if(skTab===1){shp=id;LS.s('shape',id)}else{saw=id;LS.s('saw',id)}renderSkStage(0)};
+skMv=mkTabs($('skTabs'),LG==='ru'?['❤ Сердца','⬟ Герой','⚙ Пилы']:['❤ Hearts','⬟ Hero','⚙ Saws'],i=>{skTab=i;skIdx=Math.max(0,LST().findIndex(q=>q[0]===CURID()));renderSkStage(0)});
 $('skstage').addEventListener('pointerdown',e=>{skx=e.clientX});
 addEventListener('pointerup',e=>{if(skx===null)return;const d=e.clientX-skx;skx=null;if(Math.abs(d)>40&&$('sk').classList.contains('show'))skMove(d<0?1:-1)});
 // ----- modals
-function open(id){$(id).classList.add('show');if(id==='lbm'){lbMode=mode;renderSegs();renderLB('lb1',null,lbMode)}if(id==='sk'){skIdx=Math.max(0,SK.findIndex(q=>q[0]===skin));renderSkStage(0)}closeSide()}
+function open(id){$(id).classList.add('show');if(id==='duel')duOpen();if(id==='lbm'){lbMode=mode;renderSegs();renderLB('lb1',null,lbMode)}if(id==='nw')fillNw();if(id==='sk'){skTab=0;skMv&&skMv(0);skIdx=Math.max(0,SK.findIndex(q=>q[0]===skin));renderSkStage(0)}closeSide()}
 function close(el){el.classList.remove('show')}
 document.querySelectorAll('[data-o]').forEach(b=>b.onclick=()=>open(b.dataset.o));
 document.querySelectorAll('[data-x]').forEach(b=>b.onclick=()=>close(b.closest('.ov')));
@@ -459,7 +544,7 @@ async function submit(n){const row={n,s:lastScore,ch:cur,t:Date.now()},m=mode;
  let st='';
  if(FBON()){try{if(lastScore>LS.g('gb_'+m,0)){if(await sendScore(m,row)){LS.s('gb_'+m,lastScore);st=tx('sent')}else st=tx('fail')}else st=tx('nobeat')}catch(e){st=tx('fail')}}
  $('sendst').textContent=st;renderLB('lb2',row,m)}
-function showOver(){lastScore=score;saved=false;const rg=FBON()?regNk():'';$('ot').textContent=endKind==='win'?tx('win'):endKind==='tm'?tx('tm'):tx('ot');$('fs').textContent=score;$('nick').value=LS.g('nick','');$('nick').style.display=$('save').style.display=rg?'none':'';$('save').disabled=false;$('sendst').textContent=rg?'👤 '+rg:'';$('lb2').innerHTML='';renderLB('lb2',null,mode);open('over');if(rg)submit(rg)}
+function showOver(){duEnd();lastScore=score;saved=false;const rg=FBON()?regNk():'';$('ot').textContent=endKind==='win'?tx('win'):endKind==='tm'?tx('tm'):tx('ot');$('fs').textContent=score;$('nick').value=LS.g('nick','');$('nick').style.display=$('save').style.display=rg?'none':'';$('save').disabled=false;$('sendst').textContent=rg?'👤 '+rg:'';$('lb2').innerHTML='';renderLB('lb2',null,mode);open('over');if(rg&&score>0)submit(rg)}
 $('save').onclick=async()=>{if(saved)return;let n=$('nick').value.replace(BAD,'').trim().slice(0,14);
  if(FBON()){if(n.length<2){toast(tx('nk2'));return}saved=true;$('save').disabled=true;
   try{if(!(await regNick(n))){saved=false;$('save').disabled=false;toast(tx('taken'));return}LS.s('nickReg',n);LS.s('nick',n);$('nick').style.display=$('save').style.display='none';await submit(n)}
@@ -483,24 +568,25 @@ function start(idle){items=[];parts=[];bul=[];score=0;hc=0;lives=mode==='boss'?5
 function pauseGame(){if(!run||paused||!$('game').classList.contains('on'))return;paused=true;open('pause')}
 function resume(){paused=false;close($('pause'))}
 $('pz').onclick=pauseGame;$('rs').onclick=resume;$('rst').onclick=()=>{close($('pause'));start(false)};$('ex').onclick=()=>{close($('pause'));start(true);view('menu')};
-$('play').onclick=()=>{view('game');start(false)};
+$('play').onclick=()=>{if(CH[cur].soon){toast(LG==='ru'?'Богдан скоро появится 🔒':'Bogdan is coming soon 🔒');return}view('game');start(false)};
 function ability(){const o=CH[cur];if(!run||paused||!o.cd||cdT>0)return;eff=o.dur;cdM=o.after?o.dur+o.cd:o.cd;cdT=cdM;fireT=0;burst(p.x,p.y,o.c,24)}
 $('ab').onclick=ability;
 const gsCache={};function glowSpr(c){if(gsCache[c])return gsCache[c];const k=document.createElement('canvas');k.width=k.height=72;const g=k.getContext('2d'),r=g.createRadialGradient(36,36,4,36,36,36);r.addColorStop(0,'#fff');r.addColorStop(.4,c);r.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=r;g.fillRect(0,0,72,72);return gsCache[c]=k}
 function burst(a,b,c,n=10){if(low)n=Math.ceil(n/3);else if(dev==='phone')n=Math.ceil(n*.6);if(parts.length>80)return;for(let i=0;i<n;i++)parts.push({x:a,y:b,vx:(Math.random()-.5)*7,vy:(Math.random()-.5)*7,l:.5,c})}
-function heartCol(i){if(skin==='def')return CH[cur].c;if(skin==='rb')return 'rb';return SK.find(q=>q[0]===skin)[1]}
-const pCol=c=>c==='rb'?'#ff80ab':c;
-function drawHeart(cx,cy,sz,col){x.save();x.translate(cx,cy);x.scale(sz/24,sz/24);x.translate(-12,-12);let f=col,gl=col;if(col==='rb'){const g=x.createLinearGradient(0,0,24,24);g.addColorStop(0,'#ff80ab');g.addColorStop(.55,'#6b1a3d');g.addColorStop(1,'#000');f=g;gl='#ff80ab'}x.fillStyle=f;if(!low&&dev!=='phone'){x.shadowColor=gl;x.shadowBlur=14}x.fill(HP);x.shadowBlur=0;x.strokeStyle=col==='rb'?'#ff80ab':'rgba(0,0,0,.4)';x.lineWidth=col==='rb'?1:.8;x.stroke(HP);x.restore()}
+function heartCol(i){if(skin==='def')return CH[cur].c;if(skin==='rb')return 'rb';if(GR[skin])return skin;return SK.find(q=>q[0]===skin)[1]}
+const pCol=c=>GR[c]?GR[c][0]:c;
+function drawHeart(cx,cy,sz,col){x.save();x.translate(cx,cy);x.scale(sz/24,sz/24);x.translate(-12,-12);let f=col,gl=col;if(GR[col]){const g=x.createLinearGradient(0,0,24,24);GR[col].forEach((c,i,a)=>g.addColorStop(i/(a.length-1),c));f=g;gl=GR[col][0]}x.fillStyle=f;if(!low&&dev!=='phone'){x.shadowColor=gl;x.shadowBlur=14}x.fill(HP);x.shadowBlur=0;x.strokeStyle=col==='rb'?'#ff80ab':'rgba(0,0,0,.4)';x.lineWidth=col==='rb'?1:.8;x.stroke(HP);x.restore()}
 function spike(cx,cy,r,a){x.beginPath();for(let i=0;i<16;i++){const q=i*Math.PI/8+a,R=i%2?r*.5:r;x.lineTo(cx+Math.cos(q)*R,cy+Math.sin(q)*R)}x.closePath();x.fill();x.stroke()}
 function shoot(a,sp){items.push({x:boss.x,y:boss.y+10,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,bad:1,orb:1})}
 function ring(n,sp,off){for(let i=0;i<n;i++)shoot(off+i*6.283/n,sp)}
 function bossUpdate(dt,gs){const b=boss;b.t+=dt;b.x=W/2+Math.sin(b.t*.7)*W*.32;
- const ph=b.hp>66?1:b.hp>33?2:3;b.at-=dt*gs;b.rt-=dt*gs;b.hs-=dt*gs;
+ const ph=b.hp>75?1:b.hp>50?2:b.hp>25?3:4;if(b.ph!==ph){if(b.ph)flash=.35;b.ph=ph}b.at-=dt*gs;b.rt-=dt*gs;b.hs-=dt*gs;
  if(b.at<=0){
-  if(ph===1){ring(10,140,b.ang);b.ang+=.3;b.at=1.4}
-  else if(ph===2){const a=Math.atan2(p.y-b.y,p.x-b.x);for(let k=-1;k<=1;k++)shoot(a+k*.28,190);b.at=.9}
-  else{b.ang+=.55;shoot(b.ang,150);shoot(b.ang+3.14,150);b.at=.12}}
- if(ph===3&&b.rt<=0){ring(14,130,Math.random()*6.28);b.rt=2.4}
+  if(ph===1){ring(12,145,b.ang);b.ang+=.3;b.at=1.3}
+  else if(ph===2){const a=Math.atan2(p.y-b.y,p.x-b.x);for(let k=-2;k<=2;k++)shoot(a+k*.24,195);b.at=.85}
+  else if(ph===3){b.ang+=.55;shoot(b.ang,150);shoot(b.ang+3.14,150);b.at=.12}
+  else{b.ang+=.7;for(let k=0;k<3;k++)shoot(b.ang+k*2.094,160);b.at=.15}}
+ if(ph>=3&&b.rt<=0){ring(14,130,Math.random()*6.28);b.rt=ph===4?1.9:2.4}
  if(b.hs<=0){items.push({x:40+Math.random()*(W-80),y:-20,vx:0,vy:130,bad:0});b.hs=1.7}}
 function end(kind){run=false;overT=.7;endKind=kind;if(score>(bests[mode]||0)){bests[mode]=score;LS.s('bests',bests)}ui()}
 function loop(now){
@@ -534,14 +620,14 @@ function loop(now){
  if(overT>0){overT-=dt;if(overT<=0)showOver()}
  // draw
  items.forEach(i=>{if(i.orb){x.fillStyle=light?'#c2185b':'#ff80ab';x.beginPath();x.arc(i.x,i.y,9,0,7);x.fill();x.fillStyle='#fff';x.beginPath();x.arc(i.x,i.y,3.5,0,7);x.fill()}
-  else if(i.bad){x.fillStyle='#000';x.strokeStyle=light?'#c2185b':o.c;x.lineWidth=2;spike(i.x,i.y,20,i.a)}
+  else if(i.bad){x.fillStyle='#000';x.lineWidth=2;drawSaw(i,light,o.c)}
   else drawHeart(i.x,i.y,40*(1+.06*Math.sin(tN*6+i.x)),heartCol(i))});
  if(boss){const b=boss,pc=light?'#c2185b':'#ff80ab';x.fillStyle='#000';x.strokeStyle=pc;x.lineWidth=3;spike(b.x,b.y,40,tN*.8);
   x.fillStyle='#fff';[-13,13].forEach(dx=>{x.beginPath();x.arc(b.x+dx,b.y-3,7,0,7);x.fill()});x.fillStyle='#000';[-13,13].forEach(dx=>{const a=Math.atan2(p.y-b.y,p.x-b.x);x.beginPath();x.arc(b.x+dx+Math.cos(a)*3,b.y-3+Math.sin(a)*3,3,0,7);x.fill()});
-  x.fillStyle='rgba(128,128,128,.35)';x.fillRect(20,14,W-40,10);x.fillStyle=pc;x.fillRect(20,14,(W-40)*Math.max(b.hp,0)/100,10)}
+  x.fillStyle='rgba(128,128,128,.35)';x.fillRect(20,14,W-40,10);x.fillStyle=pc;x.fillRect(20,14,(W-40)*Math.max(b.hp,0)/100,10);x.fillStyle=light?'#000':'#fff';x.font='bold 12px sans-serif';x.textAlign='center';x.fillText(Math.ceil(Math.max(b.hp,0))+'% · '+(b.hp>75?1:b.hp>50?2:b.hp>25?3:4)+'/4',W/2,38);x.textAlign='left'}
  x.fillStyle=o.c;if(!low&&dev!=='phone'){x.shadowColor=o.c;x.shadowBlur=10}bul.forEach(b=>x.fillRect(b.x-2,b.y-8,4,14));x.shadowBlur=0;
  parts.forEach(q=>{q.x+=q.vx;q.y+=q.vy;q.l-=dt;x.globalAlpha=Math.max(q.l*2,0);x.fillStyle=q.c;x.beginPath();x.arc(q.x,q.y,4,0,7);x.fill()});x.globalAlpha=1;parts=parts.filter(q=>q.l>0);
- x.drawImage(glowSpr(o.c),p.x-36,p.y-36);
+ x.drawImage(glowSpr(hcol||o.c),p.x-36,p.y-36);drawShape(p.x,p.y,hcol||o.c);
  if(cur==='polina'&&eff>0){x.strokeStyle='#fff';x.lineWidth=3;x.globalAlpha=.6+.4*Math.sin(tN*12);x.beginPath();x.arc(p.x,p.y,46,0,7);x.stroke();x.globalAlpha=1}
  if(cur==='igor'&&eff>0){x.strokeStyle=o.c;x.lineWidth=2;for(let j=0;j<3;j++){x.globalAlpha=.5-j*.15;x.beginPath();x.arc(p.x,p.y,44+j*10+Math.sin(tN*6)*3,0,7);x.stroke()}x.globalAlpha=1}
  if(cur==='alina'&&eff>0){x.font='24px sans-serif';x.textAlign='center';x.fillText('🔫',p.x+30,p.y-8)}
