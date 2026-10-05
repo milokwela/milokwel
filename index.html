@@ -556,7 +556,7 @@ async function cloudPull(){if(!FBON()){cbOn=1;return}try{const a=await fbTok(),r
  else if(!o||o.u<(+LS.g('cu',0)))setTimeout(cloudPush,300)}}catch(e){}cbOn=1}
 setTimeout(cloudPull,1200);
 // ----- уведомления об обновлениях (Firebase Cloud Messaging): впишите ключи ниже
-const PUSH={vapid:'',appId:'',sender:'414873465415',project:'hearts-game-9f6f8'};
+const PUSH={vapid:'BMruOj8b0tPXtELEA3GtLRsGg4MwnBP843hhrS6mG-jSfTiKsnkLoOd-h9_9z3tLisFZvISpJfcMo8npC3oSsPk',appId:'1:414873465415:web:b4e27196a0ba1447dc7762',sender:'414873465415',project:'hearts-game-9f6f8'};
 const ldS=u=>new Promise((ok,no)=>{const e=document.createElement('script');e.src=u;e.onload=ok;e.onerror=no;document.head.appendChild(e)});
 async function pushOn(){if(!PUSH.vapid||!PUSH.appId){toast(duL('Уведомления ещё не настроены','Notifications are not set up yet'));return}
  try{if(!('serviceWorker' in navigator)||!('Notification' in window)){toast(duL('Этот браузер не поддерживает уведомления','Notifications are not supported'));return}
