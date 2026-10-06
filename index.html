@@ -219,7 +219,6 @@ body.phone .ar2{width:52px;height:52px}
 body.phone input[type=range]{height:36px}
 body.phone .btns .btn{padding:14px 16px}
 
-
 /* ===== lite (phones) ===== */
 body.phone{animation:none;background:linear-gradient(135deg,#000 0%,#171717 45%,#8d8d8d 100%)}
 :root[data-theme="light"] body.phone{background:linear-gradient(135deg,#fff 0%,#ffd9e8 55%,#ff9ec4 100%)}
@@ -263,6 +262,29 @@ body.low #cmts,body.ingame.phone #cmts{display:none}
 #nwt{background:linear-gradient(90deg,var(--pri),#fff,var(--pri));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 3s linear infinite}
 span.lkw{display:block;width:100%;height:100%}span.lkw svg{width:100%;height:100%}.big3 span.lkw::after{font-size:34px;right:6%;bottom:4%}.mini span.lkw::after{font-size:13px;right:0;bottom:0}
 @keyframes nwIn{to{opacity:1;transform:none}}#nw .dlg{max-height:86vh;overflow:auto}
+
+/* ===== СТИЛИ БАННЕРА ХЭЛЛОУИНА ===== */
+.hw-banner{display:block;background:linear-gradient(45deg,rgba(40,0,10,0.8),rgba(80,0,25,0.8));border:1px solid #ff3b5c;border-radius:24px;padding:14px;text-align:center;text-decoration:none;color:var(--txt);margin-bottom:14px;box-shadow:0 0 16px -4px #ff3b5c;transition:transform .2s;position:relative;overflow:hidden;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+:root[data-theme="light"] .hw-banner{background:linear-gradient(45deg,rgba(255,240,246,0.9),rgba(255,194,217,0.9));border-color:#c2185b;box-shadow:0 0 16px -4px #c2185b;color:var(--txt)}
+.hw-banner:hover{transform:scale(1.02)}
+.hw-banner::after{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent);animation:shh 3s infinite}
+@keyframes shh{100%{left:200%}}
+.hw-title{font-size:17px;font-weight:800;color:#ff80ab;margin-bottom:4px}
+:root[data-theme="light"] .hw-title{color:#c2185b}
+.hw-desc{font-size:13px;opacity:.85;margin-bottom:10px;line-height:1.3}
+.hw-timer{font-size:14px;font-weight:700;background:rgba(0,0,0,0.4);padding:6px 14px;border-radius:14px;display:inline-block;color:#fff}
+:root[data-theme="light"] .hw-timer{background:rgba(255,255,255,0.6);color:#c2185b}
+
+/* Стиль для кнопки группы MAX */
+.max-group-btn {
+  display:flex; align-items:center; gap:10px; background:var(--tn); border:1px solid var(--pri);
+  border-radius:18px; padding:12px; margin-top:14px; text-decoration:none; color:var(--txt);
+  transition:.25s; text-align:left;
+}
+.max-group-btn:hover { background:var(--pri); color:var(--onpri); transform:translateY(-2px); }
+.max-group-btn span { font-size: 24px; flex:none; }
+.max-group-btn div b { display:block; font-size:15px; margin-bottom:2px; }
+.max-group-btn div small { font-size:12px; opacity:0.85; display:block; line-height:1.2; }
 </style>
 </head>
 <body>
@@ -293,6 +315,14 @@ span.lkw{display:block;width:100%;height:100%}span.lkw svg{width:100%;height:100
         <button class="li" style="--i:7" data-o="cr" data-i="cr"></button>
       </aside>
       <div class="mainc">
+        <!-- БАННЕР ХЭЛЛОУИНА (Просто счетчик) -->
+        <div class="hw-banner" id="hwBanner">
+           <div class="hw-title" data-i="hwT"></div>
+           <div class="hw-desc" data-i="hwD"></div>
+           <div class="hw-timer"><span data-i="hwTM"></span> <span id="hwTimerT"></span></div>
+        </div>
+        <!-- КОНЕЦ БАННЕРА -->
+        
         <div class="seg slide" id="sgMode"></div>
         <p class="mdesc" id="mdesc"></p>
         <div class="card car">
@@ -342,7 +372,25 @@ span.lkw{display:block;width:100%;height:100%}span.lkw svg{width:100%;height:100
 <div class="ov" id="shop"><div class="dlg who"><h2 id="shpt"></h2><div class="crb" id="crb"></div><div id="shpc"></div><div class="btns"><button class="btn" id="dyo"></button><button class="btn t" data-x id="shpx"></button></div></div></div>
 <div class="ov" id="daily"><div class="dlg who"><h2 id="dyt"></h2><p class="note" id="dyn"></p><div class="dgrid" id="dyg"></div><div class="btns"><button class="btn" id="dyc"></button><button class="btn t" data-x id="dyx"></button></div></div></div>
 <div class="ov" id="nw"><div class="dlg who"><h2 id="nwt"></h2><p id="nwp"></p><ul id="nwl"></ul><div class="btns"><button class="btn" data-x data-i="ok"></button></div></div></div>
-<div class="ov" id="cr"><div class="dlg who"><div class="av" style="--k:#ff80ab">М</div><h2 data-i="crt"></h2><p data-i="crr"></p><p data-i="crx"></p><p data-i="crx2"></p><p><b data-i="ver"></b> · <span data-i="soon"></span></p><div class="btns"><button class="btn" data-x data-i="ok"></button></div></div></div>
+
+<div class="ov" id="cr"><div class="dlg who">
+  <div class="av" style="--k:#ff80ab">М</div>
+  <h2 data-i="crt"></h2>
+  <p data-i="crr"></p>
+  <p data-i="crx"></p>
+  <p data-i="crx2"></p>
+  <p><b data-i="ver"></b> · <span data-i="soon"></span></p>
+  
+  <a href="https://max.ru/join/7_BmU_Lx0xN-Mc8W5nn4EzRRb_RLC4A99-PRkVFBffI" target="_blank" class="max-group-btn">
+    <span>✨</span>
+    <div>
+      <b data-i="maxT"></b>
+      <small data-i="maxD"></small>
+    </div>
+  </a>
+
+  <div class="btns"><button class="btn" data-x data-i="ok"></button></div>
+</div></div>
 
 <script>
 const $=id=>document.getElementById(id);
@@ -352,8 +400,9 @@ const FB_URL='https://hearts-game-9f6f8-default-rtdb.europe-west1.firebasedataba
 const FB_KEY='AIzaSyCu0Gdjotnn-xufUt8YTrmX3jCquJ9U6t8';
 // ====================================
 const T={
-ru:{ver:'beta 1.4.9',gname:'Сердечки',auto:'Слабое устройство: включил лёгкую графику. Вернуть можно в настройках.',soon:'1.5 beta — совсем скоро',pick:'✨ выбери героя',play:'▶ Играть',set:'⚙ Настройки',lbb:'🏆 Лидеры',cr:'💗 Создатель',th:'🌗 Тема',sk:'🎨 Скины',nw:'✨ Что нового',mBE:'Босс · лёгкий',mBH:'Босс · сложный',du:'⚔️ Дуэль',sh:'👑 Магазин',score:'Счёт',rec:'Рекорд',hint:'Мышь — двигать. Способность: кнопка, пробел или правый клик. Пауза: Esc.',ot:'Игра окончена 💔',win:'Победа! 🎉',tm:'Время вышло! ⏱',os:'Придумай ник и попади в таблицу лидеров',nick:'Твой ник',save:'Сохранить',again:'Ещё раз',tomenu:'В меню',lt:'🏆 Таблица лидеров',close:'Закрыть',st:'⚙ Настройки',lang:'Язык',dev:'Устройство',gfx:'Графика',low:'Низкая',high:'Высокая',ctM:'Скорость мыши',ctT:'Скорость касания',m2:'Скорость игры',done:'Готово',crt:'Милок',crr:'Создатель игры',crx:'Сделано с 💗 — чёрный, белый и розовый.',ok:'Круто!',fix:'↩ вернуть',empty:'Пока пусто — стань первым!',anon:'Аноним',ready:'готово',s:'с',end:'Конец! Счёт: ',act:'Активная',pas:'Пассивная',conf:'✔ Подтвердить',cancel:'Отмена',chg:'Сменить устройство',dvt:'Выбери устройство',dvs:'Запомню на этом устройстве. Поменять можно в настройках.',pc:'ПК · мышь',ph:'Телефон · касание',mC:'Классика',mS:'Спринт 60с',mB:'Босс',dC:'Бесконечно: лови 💗, уворачивайся от пил',dS:'60 секунд — набери как можно больше',dB:'Босс: уворачивайся от атак, лови 💗 — они ранят босса',skt:'🎨 Скины сердечек',sks:'Цвет сердечек в игре',unl:'🖤 Секретный скин открыт: розово-чёрное сердце!',pickSk:'Выбрать',picked:'✔ Выбрано',crx2:'Стараюсь делать всё лучше и лучше 💗',pt:'⏸ Пауза',rs:'▶ Продолжить',rst:'↻ Заново',ex:'⌂ Выйти в меню',lbl:'Только на этом устройстве',lbg:'Общая таблица 🌍',s0:'Герой',s1:'Красный',s2:'Белый',s3:'Золото',s4:'Лёд',s5:'Розово-чёрное',s6:'Розовая',s7:'Мятная',s8:'Фиолетовая',s9:'Оранжевая',s10:'Бирюзовая',taken:'Этот ник уже занят, придумай другой',nk2:'Ник: минимум 2 символа',sent:'✔ Рекорд отправлен в общую таблицу',nobeat:'Твой рекорд выше — результат не заменён',fail:'Нет связи с сервером, попробуй позже'},
-en:{ver:'beta 1.4.9',gname:'Hearts',auto:'Slow device: switched to light graphics. You can change it in settings.',soon:'1.5 beta — coming very soon',pick:'✨ choose your hero',play:'▶ Play',set:'⚙ Settings',lbb:'🏆 Leaders',cr:'💗 Creator',th:'🌗 Theme',sk:'🎨 Skins',nw:'✨ What\'s new',mBE:'Boss · easy',mBH:'Boss · hard',du:'⚔️ Duel',sh:'👑 Shop',score:'Score',rec:'Best',hint:'Mouse to move. Ability: button, space or right click. Pause: Esc.',ot:'Game over 💔',win:'Victory! 🎉',tm:"Time's up! ⏱",os:'Pick a nickname and join the leaderboard',nick:'Your nickname',save:'Save',again:'Play again',tomenu:'Menu',lt:'🏆 Leaderboard',close:'Close',st:'⚙ Settings',lang:'Language',dev:'Device',gfx:'Graphics',low:'Low',high:'High',ctM:'Mouse speed',ctT:'Touch speed',m2:'Game speed',done:'Done',crt:'Milok',crr:'Game creator',crx:'Made with 💗 — black, white and pink.',ok:'Cool!',fix:'↩ restore',empty:'Nothing yet — be the first!',anon:'Anon',ready:'ready',s:'s',end:'Game over! Score: ',act:'Active',pas:'Passive',conf:'✔ Confirm',cancel:'Cancel',chg:'Change device',dvt:'Choose your device',dvs:'I will remember it on this device. You can change it in settings.',pc:'PC · mouse',ph:'Phone · touch',mC:'Classic',mS:'Sprint 60s',mB:'Boss',dC:'Endless: catch 💗, dodge the saws',dS:'60 seconds — score as much as you can',dB:'Boss: dodge attacks, catch 💗 to hurt the boss',skt:'🎨 Heart skins',sks:'Heart color in game',unl:'🖤 Secret skin unlocked: pink-black heart!',pickSk:'Select',picked:'✔ Selected',crx2:'I keep trying to make it better and better 💗',pt:'⏸ Paused',rs:'▶ Resume',rst:'↻ Restart',ex:'⌂ Exit to menu',lbl:'Only on this device',lbg:'Global leaderboard 🌍',s0:'Hero',s1:'Red',s2:'White',s3:'Gold',s4:'Ice',s5:'Pink-black',s6:'Pink',s7:'Mint',s8:'Violet',s9:'Orange',s10:'Cyan',taken:'This nickname is taken, pick another',nk2:'Nickname: at least 2 characters',sent:'✔ Record sent to the global table',nobeat:'Your record is higher — not replaced',fail:'No connection, try again later'}};
+ru:{ver:'beta 1.4.9',gname:'Сердечки',auto:'Слабое устройство: включил лёгкую графику. Вернуть можно в настройках.',soon:'1.5 beta — совсем скоро',pick:'✨ выбери героя',play:'▶ Играть',set:'⚙ Настройки',lbb:'🏆 Лидеры',cr:'💗 Создатель',th:'🌗 Тема',sk:'🎨 Скины',nw:'✨ Что нового',mBE:'Босс · лёгкий',mBH:'Босс · сложный',du:'⚔️ Дуэль',sh:'👑 Магазин',score:'Счёт',rec:'Рекорд',hint:'Мышь — двигать. Способность: кнопка, пробел или правый клик. Пауза: Esc.',ot:'Игра окончена 💔',win:'Победа! 🎉',tm:'Время вышло! ⏱',os:'Придумай ник и попади в таблицу лидеров',nick:'Твой ник',save:'Сохранить',again:'Ещё раз',tomenu:'В меню',lt:'🏆 Таблица лидеров',close:'Закрыть',st:'⚙ Настройки',lang:'Язык',dev:'Устройство',gfx:'Графика',low:'Низкая',high:'Высокая',ctM:'Скорость мыши',ctT:'Скорость касания',m2:'Скорость игры',done:'Готово',crt:'Милок',crr:'Создатель игры',crx:'Сделано с 💗 — чёрный, белый и розовый.',ok:'Круто!',fix:'↩ вернуть',empty:'Пока пусто — стань первым!',anon:'Аноним',ready:'готово',s:'с',end:'Конец! Счёт: ',act:'Активная',pas:'Пассивная',conf:'✔ Подтвердить',cancel:'Отмена',chg:'Сменить устройство',dvt:'Выбери устройство',dvs:'Запомню на этом устройстве. Поменять можно в настройках.',pc:'ПК · мышь',ph:'Телефон · касание',mC:'Классика',mS:'Спринт 60с',mB:'Босс',dC:'Бесконечно: лови 💗, уворачивайся от пил',dS:'60 секунд — набери как можно больше',dB:'Босс: уворачивайся от атак, лови 💗 — они ранят босса',skt:'🎨 Скины сердечек',sks:'Цвет сердечек в игре',unl:'🖤 Секретный скин открыт: розово-чёрное сердце!',pickSk:'Выбрать',picked:'✔ Выбрано',crx2:'Стараюсь делать всё лучше и лучше 💗',pt:'⏸ Пауза',rs:'▶ Продолжить',rst:'↻ Заново',ex:'⌂ Выйти в меню',lbl:'Только на этом устройстве',lbg:'Общая таблица 🌍',s0:'Герой',s1:'Красный',s2:'Белый',s3:'Золото',s4:'Лёд',s5:'Розово-чёрное',s6:'Розовая',s7:'Мятная',s8:'Фиолетовая',s9:'Оранжевая',s10:'Бирюзовая',taken:'Этот ник уже занят, придумай другой',nk2:'Ник: минимум 2 символа',sent:'✔ Рекорд отправлен в общую таблицу',nobeat:'Твой рекорд выше — результат не заменён',fail:'Нет связи с сервером, попробуй позже', hwT:'🎃 Хэллоуинское обновление', hwD:'Уже скоро... это будет ОЧЕНЬ страшное обновление!', hwTM:'До выхода:', maxT:'Группа MAX', maxD:'Предстоящие обновления и спойлеры смотрите в нашей группе MAX'},
+en:{ver:'beta 1.4.9',gname:'Hearts',auto:'Slow device: switched to light graphics. You can change it in settings.',soon:'1.5 beta — coming very soon',pick:'✨ choose your hero',play:'▶ Play',set:'⚙ Settings',lbb:'🏆 Leaders',cr:'💗 Creator',th:'🌗 Theme',sk:'🎨 Skins',nw:'✨ What\'s new',mBE:'Boss · easy',mBH:'Boss · hard',du:'⚔️ Duel',sh:'👑 Shop',score:'Score',rec:'Best',hint:'Mouse to move. Ability: button, space or right click. Pause: Esc.',ot:'Game over 💔',win:'Victory! 🎉',tm:"Time's up! ⏱",os:'Pick a nickname and join the leaderboard',nick:'Your nickname',save:'Save',again:'Play again',tomenu:'Menu',lt:'🏆 Leaderboard',close:'Close',st:'⚙ Settings',lang:'Language',dev:'Device',gfx:'Graphics',low:'Low',high:'High',ctM:'Mouse speed',ctT:'Touch speed',m2:'Game speed',done:'Done',crt:'Milok',crr:'Game creator',crx:'Made with 💗 — black, white and pink.',ok:'Cool!',fix:'↩ restore',empty:'Nothing yet — be the first!',anon:'Anon',ready:'ready',s:'s',end:'Game over! Score: ',act:'Active',pas:'Passive',conf:'✔ Confirm',cancel:'Cancel',chg:'Change device',dvt:'Choose your device',dvs:'I will remember it on this device. You can change it in settings.',pc:'PC · mouse',ph:'Phone · touch',mC:'Classic',mS:'Sprint 60s',mB:'Boss',dC:'Endless: catch 💗, dodge the saws',dS:'60 seconds — score as much as you can',dB:'Boss: dodge attacks, catch 💗 to hurt the boss',skt:'🎨 Heart skins',sks:'Heart color in game',unl:'🖤 Secret skin unlocked: pink-black heart!',pickSk:'Select',picked:'✔ Selected',crx2:'I keep trying to make it better and better 💗',pt:'⏸ Paused',rs:'▶ Resume',rst:'↻ Restart',ex:'⌂ Exit to menu',lbl:'Only on this device',lbg:'Global leaderboard 🌍',s0:'Hero',s1:'Red',s2:'White',s3:'Gold',s4:'Ice',s5:'Pink-black',s6:'Pink',s7:'Mint',s8:'Violet',s9:'Orange',s10:'Cyan',taken:'This nickname is taken, pick another',nk2:'Nickname: at least 2 characters',sent:'✔ Record sent to the global table',nobeat:'Your record is higher — not replaced',fail:'No connection, try again later', hwT:'🎃 Halloween Update', hwD:'Coming soon... this will be a VERY scary update!', hwTM:'Releases in:', maxT:'MAX Group', maxD:'Check out upcoming updates and spoilers in our MAX group'}
+};
 const CH={
  polina:{img:'photos/polina.jpg',c:'#ff80ab',cd:14,dur:6,t:'a',ru:{n:'Полина',d:'Щит 6 сек · перезарядка 14 сек',ab:'🛡 Щит'},en:{n:'Polina',d:'Shield 6s · cooldown 14s',ab:'🛡 Shield'}},
  igor:{img:'photos/igor.jpg',c:'#e8e8f0',cd:14,dur:7,t:'a',ru:{n:'Игорь',d:'Замедление 7 сек · перезарядка 14 сек',ab:'⏳ Замедление'},en:{n:'Igor',d:'Slow-mo 7s · cooldown 14s',ab:'⏳ Slow-mo'}},
@@ -452,7 +501,7 @@ function pick(k){cur=k;const o=CH[k];document.documentElement.style.setProperty(
 function applyLang(){document.documentElement.lang=LG;document.title=tx('gname')+' 💗 '+tx('ver');document.querySelectorAll('[data-i]').forEach(e=>e.textContent=tx(e.dataset.i));
  document.querySelectorAll('.li').forEach(e=>{const t=e.textContent,i=t.indexOf(' ');if(i>0)e.innerHTML=`<span class="ic">${t.slice(0,i)}</span><span>${t.slice(i+1)}</span>`});document.querySelectorAll('[data-p]').forEach(e=>e.placeholder=tx(e.dataset.p));
  $('m1l').textContent=tx(dev==='phone'?'ctT':'ctM');$('mdesc').textContent=tx(MD[mode]);
- renderCards();setTimeout(()=>{centerCur('instant');cover();hl()},30);setName(CH[cur][LG].n);$('desc').textContent=CH[cur][LG].d;$('abt').textContent=CH[cur][LG].ab;bgLetters();renderSegs();renderSkStage(0);aT='';aW='';ui()}
+ renderCards();setTimeout(()=>{centerCur('instant');cover();hl()},30);setName(CH[cur][LG].n);$('desc').textContent=CH[cur][LG].d;$('abt').textContent=CH[cur][LG].ab;bgLetters();renderSegs();renderSkStage(0);aT='';aW='';ui();updateHWTimer()}
 // ----- skins (preview + swipe)
 let skIdx=Math.max(0,SK.findIndex(q=>q[0]===skin)),skx=null;
 let skTab=0,skMv=null,shp=LS.g('shape','c'),saw=LS.g('saw','d'),hcol=LS.g('hcol',''),scol=LS.g('scol','');
@@ -556,7 +605,7 @@ async function cloudPull(){if(!FBON()){cbOn=1;return}try{const a=await fbTok(),r
  else if(!o||o.u<(+LS.g('cu',0)))setTimeout(cloudPush,300)}}catch(e){}cbOn=1}
 setTimeout(cloudPull,1200);
 // ----- уведомления об обновлениях (Firebase Cloud Messaging): впишите ключи ниже
-const PUSH={vapid:'BMruOj8b0tPXtELEA3GtLRsGg4MwnBP843hhrS6mG-jSfTiKsnkLoOd-h9_9z3tLisFZvISpJfcMo8npC3oSsPk',appId:'1:414873465415:web:b4e27196a0ba1447dc7762',sender:'414873465415',project:'hearts-game-9f6f8'};
+const PUSH={vapid:'1:414873465415:web:b4e27196a0ba1447dc7762',appId:'1:414873465415:web:b4e27196a0ba1447dc7762',sender:'414873465415',project:'hearts-game-9f6f8'};
 const ldS=u=>new Promise((ok,no)=>{const e=document.createElement('script');e.src=u;e.onload=ok;e.onerror=no;document.head.appendChild(e)});
 async function pushOn(){if(!PUSH.vapid||!PUSH.appId){toast(duL('Уведомления ещё не настроены','Notifications are not set up yet'));return}
  try{if(!('serviceWorker' in navigator)||!('Notification' in window)){toast(duL('Этот браузер не поддерживает уведомления','Notifications are not supported'));return}
@@ -771,6 +820,28 @@ addEventListener('pointermove',e=>{if(!drag)return;const n=performance.now(),d=M
  drag.vx=drag.vx*.6+((e.clientX-drag.lx)/d)*.4;drag.vy=drag.vy*.6+((e.clientY-drag.ly)/d)*.4;drag.lx=e.clientX;drag.ly=e.clientY;drag.lt=n;
  drag.it.x=e.clientX-drag.ox;drag.it.y=e.clientY-drag.oy;put(drag.it)});
 addEventListener('pointerup',()=>{if(!drag)return;const i=drag.it;i.drag=false;i.vx=Math.max(-2500,Math.min(2500,drag.vx));i.vy=Math.max(-2500,Math.min(2500,drag.vy));i.vr=i.vx/Math.max(i.w,60)*2;i.el.style.cursor='grab';drag=null});
+
+// ===== ТАЙМЕР ХЭЛЛОУИНА =====
+function updateHWTimer(){
+  const e=$('hwTimerT');
+  if(!e)return;
+  // Целевая дата: 21 октября (можно поменять год, если нужно)
+  const tgt = new Date('2026-10-21T00:00:00').getTime();
+  const diff = tgt - Date.now();
+  if(diff > 0){
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff / 3600000) % 24);
+    const m = Math.floor((diff / 60000) % 60);
+    const s = Math.floor((diff / 1000) % 60);
+    e.textContent = `${d}${LG==='ru'?'д':'d'} ${h}${LG==='ru'?'ч':'h'} ${m}${LG==='ru'?'м':'m'} ${s}${LG==='ru'?'с':'s'}`;
+  } else {
+    e.textContent = LG==='ru' ? 'Уже доступно!' : 'Available now!';
+  }
+}
+setInterval(updateHWTimer, 1000);
+updateHWTimer();
+// =============================
+
 // ===== init =====
 document.body.classList.toggle('low',low);
 $('dev').classList.remove('show');
