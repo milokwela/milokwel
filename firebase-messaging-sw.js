@@ -1,4 +1,4 @@
-// Служебный файл для уведомлений. Положите рядом с index.html (в корень сайта) и не переименовывайте.
+// Служебный файл для уведомлений. Положите в корень сайта рядом с index.html и не переименовывайте.
 importScripts('https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js');
 firebase.initializeApp({
