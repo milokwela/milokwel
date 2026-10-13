@@ -308,6 +308,14 @@ body.hw #shop .dlg{background:radial-gradient(120% 60% at 50% 0%,rgba(255,120,0,
 #shdec{position:absolute;left:0;right:0;top:0;height:0;pointer-events:none;z-index:2}#shdec .wb{position:absolute;top:0;width:110px;height:110px;opacity:.55}#shdec .wl{left:0}#shdec .wr{right:0;transform:scaleX(-1)}#shdec .sp{position:absolute;top:0;width:34px;transform-origin:50% 0;animation:spw 3.2s ease-in-out infinite}.sp i{display:block;width:1px;background:rgba(255,255,255,.35);margin:0 auto}.sp svg{width:26px;height:26px;display:block;margin:0 auto}@keyframes spw{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(7deg)}}
 body:not(.hw) #shdec{display:none}
 #shop .btns{position:sticky;bottom:-1px;z-index:3;padding:12px 0 4px;margin-top:8px;background:linear-gradient(0deg,#150b10 72%,transparent)}
+@keyframes gold{0%,100%{text-shadow:0 0 6px #ffd54f,0 0 14px rgba(255,193,7,.6)}50%{text-shadow:0 0 12px #fff176,0 0 26px rgba(255,193,7,.95)}}@keyframes orb{from{transform:rotate(0) translateX(17px) rotate(0)}to{transform:rotate(360deg) translateX(17px) rotate(-360deg)}}@keyframes shim{from{background-position:200% 0}to{background-position:-200% 0}}@keyframes tw{0%,100%{opacity:.2;transform:scale(.6)}50%{opacity:1;transform:scale(1.1)}}
+#lb1 tr:nth-child(1){background:linear-gradient(90deg,rgba(255,193,7,.3),rgba(255,193,7,.05))!important}#lb1 tr:nth-child(1) td{color:#ffe082;animation:gold 2s ease-in-out infinite}#lb1 tr:nth-child(1) td:first-child,#lb1 tr:nth-child(2) td:first-child{position:relative}#lb1 tr:nth-child(1) td:first-child::after{content:"✦";position:absolute;right:0;top:0;font-size:12px;color:#fff59d;animation:tw 1.3s ease-in-out infinite}
+#lb1 tr:nth-child(2){background:linear-gradient(90deg,rgba(207,216,220,.22),transparent)!important}#lb1 tr:nth-child(2) td:first-child::after{content:"★";position:absolute;left:50%;top:50%;margin:-8px 0 0 -6px;font-size:12px;color:#eceff1;text-shadow:0 0 8px #b0bec5;animation:orb 2.4s linear infinite}
+#lb1 tr:nth-child(3){background:linear-gradient(100deg,rgba(205,127,50,.12) 20%,rgba(255,167,38,.38) 50%,rgba(205,127,50,.12) 80%)!important;background-size:200% 100%;animation:lbIn .45s cubic-bezier(.2,.8,.3,1) .15s both,shim 3.2s linear infinite}
+body:not(.phone):not(.ingame) .hero{padding-left:14px}
+body.hw #duel h2,body.hw #nkm h2{color:#ff9100;text-shadow:0 0 16px rgba(255,120,0,.6)}body.hw #duel .btn:not(.t),body.hw #nkm .btn:not(.t){background:linear-gradient(135deg,#ff9100,#ff6d00);box-shadow:0 8px 24px -8px rgba(255,120,0,.7)}body.hw #side .li:hover{box-shadow:0 0 18px -4px rgba(255,120,0,.6)}
+body.hw .card{position:relative}
+body.hw .hero,body.hw #side,body.hw .car{isolation:isolate}
 </style>
 </head>
 <body>
@@ -380,11 +388,13 @@ body:not(.hw) #shdec{display:none}
   <div class="set"><label><span id="m1l"></span><span id="v1"></span></label><input type="range" id="s1" min="1" max="10" step="1"></div>
   <div class="set"><label><span data-i="m2"></span><span id="v2"></span></label><input type="range" id="s2" min="0.8" max="2.5" step="0.1"></div>
   <div class="set"><label id="thl"></label><div class="seg slide" id="sgTh"></div></div>
+  <div class="set"><button class="ib" id="nkb" style="width:100%"></button></div>
   <div class="set"><button class="ib" id="hwtg" style="width:100%"></button></div>
   <div class="set"><button class="ib" id="pushb" style="width:100%"></button></div>
   <div class="set"><button class="ib" data-o="cr" id="crb2" style="width:100%"></button></div>
   <div class="btns"><button class="btn" data-x data-i="done"></button></div></div></div>
 <div class="ov" id="duel"><div class="dlg who"><h2 id="dut"></h2><p id="dup"></p><div id="dub"></div><div class="btns"><button class="btn t" id="duX"></button></div></div></div>
+<div class="ov" id="nkm"><div class="dlg who"><h2 id="nkt"></h2><p class="note" id="nkp"></p><input id="nki" maxlength="14" autocomplete="off"><div class="btns"><button class="btn" id="nks"></button><button class="btn t" data-x id="nkx"></button></div></div></div>
 <div class="ov" id="shop"><div class="dlg who"><h2 id="shpt"></h2><div class="crb" id="crb"></div><div id="shpc"></div><div class="btns"><button class="btn" id="dyo"></button><button class="btn t" data-x id="shpx"></button></div></div></div>
 <div class="ov" id="daily"><div class="dlg who"><h2 id="dyt"></h2><p class="note" id="dyn"></p><div class="dgrid" id="dyg"></div><div class="btns"><button class="btn" id="dyc"></button><button class="btn t" data-x id="dyx"></button></div></div></div>
 <div class="ov" id="hw"><div class="dlg who"><h2 class="hwh" id="hwh"></h2><p class="note" id="hwp"></p><div class="hwt" id="hwc"></div><div class="soonc" id="hwx"></div><a class="maxb" id="maxl" target="_blank" rel="noopener"></a><div class="btns"><button class="btn t" data-x id="hwcl"></button></div></div></div>
@@ -611,10 +621,11 @@ async function duLoad(){try{const o=await duH('_L','GET')||{};duLb=Object.entrie
 $('duX').onclick=()=>{if(DU&&DU.run)return;if(DU&&DU.go&&!duAllDone()){toast(duL('Дождитесь, пока все доиграют','Wait until everyone finishes'));return}duLeave();close($('duel'))};
 async function duLeave(){if(DU){const c=DU.c,u=DU.uid,h=DU.t.m&&DU.t.m.h===u,n=Object.keys(DU.t.p||{}).length;try{await duH(c+'/p/'+u,'DELETE');if(h&&n<=1){duH('_L/'+c,'DELETE').catch(()=>{});duH(c+'/m','DELETE').catch(()=>{})}}catch(e){}}duStop();duLoad()}
 const duPut=(k,v)=>duH(DU.c+'/p/'+DU.uid+'/'+k,'PUT',v).catch(()=>toast(tx('fail')));
+const duHistRows=()=>{let H=[];try{H=LS.g('duh',[])||[]}catch(e){}return H.length?H.slice(0,10).map(h=>{const d=new Date(h.t),p=n=>String(n).padStart(2,'0');return '<div class="shr" style="padding:8px 12px"><div class="shic" style="width:34px;height:34px;font-size:22px">'+(h.w>0?'🏆':h.w<0?'💀':'🤝')+'</div><div class="shi"><b>'+duEsc(h.o||'?')+'</b><small>'+h.a+' : '+h.b+' · '+p(d.getDate())+'.'+p(d.getMonth()+1)+' '+p(d.getHours())+':'+p(d.getMinutes())+'</small></div></div>'}).join(''):'<div class="note">'+duL('Матчей пока нет','No matches yet')+'</div>'};
 function duRender(){const b=$('dub');if(!FBON())return;const t=DU&&DU.t||{};
  if(!DU){const mdn=k=>MI[k]+' '+tx(MK[k]);
   const lst=duLb===null?'<div class="note">'+duL('Загрузка…','Loading…')+'</div>':duLb===false?'<div class="note">'+duL('Список недоступен: проверьте правила Firebase','List unavailable: check Firebase rules')+'</div>':duLb.length?duLb.map(([k,v])=>`<div class="shr"><div class="shi"><b>${duEsc(v.n||'?')}</b><small>${v.md&&MK[v.md]?mdn(v.md):''}</small></div><button class="shp" data-j="${k}">${duL('Войти','Join')}</button></div>`).join(''):'<div class="note">'+duL('Пока нет команд — создайте свою','No teams yet, create one')+'</div>';
-  b.innerHTML=duV===0?`<button class="btn" id="duM" style="width:100%">${duL('Создать команду','Create team')}</button><h3 style="margin:16px 0 4px">${duL('Открытые команды','Open teams')} <button class="btn t" id="duRf" style="padding:2px 12px;min-height:0">↻</button></h3>${lst}`:`<input id="duN" maxlength="14" placeholder="${duL('Твой ник','Your nickname')}" value="${duEsc(regNk()||LS.g('nick',''))}" style="${duIS}">${duV===1?`<input id="duT" maxlength="16" placeholder="${duL('Название команды','Team name')}" style="${duIS}"><div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:6px 0">${duMD().map(k=>`<button class="btn${k===duSelM?'':' t'}" data-md="${k}" style="padding:8px 12px;min-height:0">${mdn(k)}</button>`).join('')}</div>`:''}<button class="btn" id="duOk" style="width:100%;margin-top:8px">${duV===1?duL('Создать','Create'):duL('Войти','Join')}</button><button class="btn t" id="duBk" style="width:100%;margin-top:6px">${duL('Назад','Back')}</button>`;
+  b.innerHTML=duV===0?`<button class="btn" id="duM" style="width:100%">${duL('Создать команду','Create team')}</button><h3 style="margin:16px 0 4px">${duL('Открытые команды','Open teams')} <button class="btn t" id="duRf" style="padding:2px 12px;min-height:0">↻</button></h3>${lst}<h3 style="margin:16px 0 4px">${duL('История матчей','Match history')}</h3>${duHistRows()}`:`<input id="duN" maxlength="14" placeholder="${duL('Твой ник','Your nickname')}" value="${duEsc(regNk()||LS.g('nick',''))}" style="${duIS}">${duV===1?`<input id="duT" maxlength="16" placeholder="${duL('Название команды','Team name')}" style="${duIS}"><div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:6px 0">${duMD().map(k=>`<button class="btn${k===duSelM?'':' t'}" data-md="${k}" style="padding:8px 12px;min-height:0">${mdn(k)}</button>`).join('')}</div>`:''}<button class="btn" id="duOk" style="width:100%;margin-top:8px">${duV===1?duL('Создать','Create'):duL('Войти','Join')}</button><button class="btn t" id="duBk" style="width:100%;margin-top:6px">${duL('Назад','Back')}</button>`;
   b.onclick=e=>{const m=e.target.closest('[data-md]');if(m){duSelM=m.dataset.md;b.querySelectorAll('[data-md]').forEach(x=>x.classList.toggle('t',x!==m));return}const j=e.target.closest('[data-j]');if(j){const nk0=regNk()||LS.g('nick','');if(nk0&&nk0.length>=2)duGo(0,j.dataset.j);else{duV=2;duPj=j.dataset.j;duRender()}return}
    if(e.target.closest('#duM')){duV=1;duRender()}else if(e.target.closest('#duOk'))duV===1?duGo(1):duGo(0,duPj);else if(e.target.closest('#duBk')){duV=0;duRender()}else if(e.target.closest('#duRf')){duLb=null;duLoad();duRender()}};return}
  const m=t.m||{},ps=Object.entries(t.p||{}),me=(t.p||{})[DU.uid]||{};
@@ -672,8 +683,8 @@ $('pushb').textContent='🔔 '+duL('Уведомления об обновлен
 const HWT=Date.UTC(2026,9,30,17,0,0),HWE=new Date(2026,10,1,0,0,0).getTime(),MAXL='https://max.ru/join/7_BmU_Lx0xN-Mc8W5nn4EzRRb_RLC4A99-PRkVFBffI';
 function hwOn(){return Date.now()<HWE}
 let hwC=false;
-function hwApply(){hwC=hwOn();document.body.classList.toggle('hw',hwC);bgLetters();$('hwtg').textContent='🎃 '+duL('Хэллоуин-оформление','Halloween style')+': '+(hwOn()?duL('вкл','on'):duL('выкл','off'))}
-$('hwtg').style.display='none';
+function hwApply(){hwC=hwOn();document.body.classList.toggle('hw',hwC);bgLetters();$('hwtg').textContent='🧪 '+duL('Отменить бета-доступ','Cancel beta access')}
+if(tst){$('hwtg').onclick=()=>{try{localStorage.removeItem('hwtst')}catch(e){}location.reload()}}else $('hwtg').parentNode.style.display='none';
 if(Date.now()<HWE){const hd=document.createElement('div');hd.id='hwd';
  const web='<svg class="web WW" viewBox="0 0 100 100"><path d="M0 0L100 0M0 0L92 38M0 0L70 70M0 0L38 92M0 0L0 100M22 0Q20 20 0 22M44 0Q40 40 0 44M66 0Q60 60 0 66M88 0Q80 80 0 88" fill="none" stroke="currentColor" stroke-width="1.1"/></svg>',
  bat=(y,t,sz,dl)=>'<div class="bat" style="--y:'+y+'vh;--t:'+t+'s;--s:'+sz+';--dl:-'+dl+'s"><span>🦇</span></div>',
@@ -1022,8 +1033,48 @@ addEventListener('pointerup',()=>{if(!drag)return;const i=drag.it;i.drag=false;i
 document.body.classList.toggle('low',low);
 $('dev').classList.remove('show');
 if(!relD()){const X=/^(hwo|hgh|htx|hbl|wb|wg|wk|wp|xpk|xgh|xbt|xsk)$/;[SK,SHP,SW].forEach(a=>{for(let k=a.length;k--;)if(X.test(a[k][0]))a.splice(k,1)});Object.keys(PR).forEach(k=>{if(X.test(k))delete PR[k]});if(mode==='hw'){mode='classic';LS.s('mode','classic')}if(!SHP.some(q=>q[0]===shp))shp='c';if(!SW.some(q=>q[0]===saw))saw='d'}
-{let c=0,T=0;$('nwt').onclick=()=>{const n=Date.now();c=n-T<1500?c+1:1;T=n;if(c>=5){c=0;try{localStorage.setItem('hwtst',tst?'':'1')}catch(e){}toast(tst?'⏳ Таймер: обычный режим':'🧪 Тест: обновление открыто');setTimeout(()=>location.reload(),700)}}}
+{let c=0,T=0;$('nwt').onclick=()=>{const n=Date.now();c=n-T<1500?c+1:1;T=n;if(c>=5){c=0;if(tst)return;const p=prompt(duL('Пароль бета-доступа','Beta access password'));if(p==='6644'){try{localStorage.setItem('hwtst','1')}catch(e){}toast('🧪 '+duL('Бета-доступ открыт','Beta access unlocked'));setTimeout(()=>location.reload(),700)}else if(p!==null)toast(duL('Неверный пароль','Wrong password'))}}}
 {const d=RELM-Date.now();if(!tst&&d>0&&d<2e9)setTimeout(()=>location.reload(),d+500)}
+
+(function(){const P=(a,f,c)=>'<polygon points="'+a.map(q=>q.join(',')).join(' ')+'" fill="'+f+'" stroke="'+c+'" stroke-width="2"/>';
+const SH={bat:c=>P(HMR([[0,-9],[3,-17],[5,-9],[22,-9],[18,3],[11,1],[8,9],[3,5],[0,15]]),'none',c),
+gh:c=>P([[-14,17],[-14,-4],[-10,-17],[0,-22],[10,-17],[14,-4],[14,17],[7,10],[0,17],[-7,10]],'none',c),
+pk:c=>'<g fill="none" stroke="'+c+'" stroke-width="2"><ellipse cx="-8" cy="2" rx="8" ry="12"/><ellipse cx="8" cy="2" rx="8" ry="12"/><ellipse cy="2" rx="7" ry="13"/><path d="M-2-11L0-18L3-11"/></g>',
+mn:c=>'<path d="M8-14A14 14 0 1 0 14 6A11 11 0 0 1 8-14Z" fill="none" stroke="'+c+'" stroke-width="2"/>',
+ts:c=>'<path d="M-9 14V-3Q-9-13 0-13Q9-13 9-3V14ZM0-7V3M-4-3H4" fill="none" stroke="'+c+'" stroke-width="2"/>',
+cd:c=>'<path d="M-4 4H4V16H-4ZM0 3Q-4-3 0-9Q4-3 0 3" fill="none" stroke="'+c+'" stroke-width="2"/>',
+wb:c=>'<path d="M0 0H60M0 0L55 25M0 0L40 45M0 0L20 58M0 0V60M14 0Q12 12 0 14M30 0Q26 26 0 30M46 0Q40 40 0 46" fill="none" stroke="'+c+'" stroke-width="1.5"/>'};
+const scene=(l,w,h)=>'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+(w||400)+' '+(h||700)+'">'+l.map(([k,x,y,s,r,c])=>'<g transform="translate('+x+' '+y+') rotate('+r+') scale('+s+')" opacity=".4">'+SH[k](c)+'</g>').join('')+'</svg>';
+const O='#ff9100',V='#b388ff',R='#ff5252';
+const B={set:[['wb',0,0,3,0,O],['bat',320,60,1.6,-10,V],['bat',60,640,1.4,12,O],['cd',340,600,2.2,0,O],['pk',70,330,1.6,-8,O]],
+sk:[['mn',330,80,3,0,O],['gh',60,200,2.2,-6,V],['cd',70,620,2.4,0,O],['cd',340,560,1.8,0,O],['bat',250,350,1.3,8,V]],
+duel:[['gh',70,120,2.4,-8,V],['gh',330,320,2,10,O],['bat',200,640,1.6,0,V],['ts',60,600,2,0,O]],
+lbm:[['ts',70,90,2,0,O],['ts',330,160,1.7,0,V],['pk',340,600,2,8,O],['bat',90,520,1.5,-12,V],['wb',0,0,3,0,O]],
+nw:[['bat',70,80,1.8,-10,O],['bat',320,150,1.4,10,V],['bat',200,40,1,0,R],['mn',330,600,3,0,O],['gh',60,560,2,6,V]],
+daily:[['pk',70,100,2.2,-6,O],['pk',330,520,2.6,8,O],['cd',60,600,2,0,O],['bat',330,90,1.4,10,V]],
+hw:[['mn',320,70,3.4,0,O],['bat',80,150,1.6,-8,V],['gh',70,600,2.4,8,O],['ts',330,610,2,0,V]],
+over:[['ts',70,100,2.2,0,R],['bat',320,120,1.6,8,V],['gh',330,580,2.2,-8,O]],
+pause:[['cd',60,100,2.4,0,O],['cd',340,100,2.4,0,O],['bat',200,600,1.6,0,V]],
+cr:[['pk',330,100,2.2,8,O],['mn',70,560,3,0,O]],
+nkm:[['gh',330,110,2.4,8,V],['bat',70,90,1.6,-10,O],['pk',70,560,2.2,-6,O],['cd',340,600,2,0,O]],
+hero:[['wb',0,0,3,0,O],['bat',150,60,2,-10,V],['bat',860,50,2.2,10,O],['mn',60,150,2.6,0,O],['gh',940,150,1.8,8,V],['cd',250,160,1.6,0,O]],
+side:[['wb',0,0,2.6,0,O],['bat',190,90,1.2,10,V],['ts',50,520,1.8,0,O],['cd',190,500,1.6,0,O],['pk',120,300,1.4,-6,O],['mn',200,260,1.8,0,V]],
+car:[['gh',70,70,1.8,-8,V],['bat',540,60,1.5,10,O],['pk',70,250,1.6,0,O],['mn',540,240,2,0,O]]};
+B.hero.w=1000;B.hero.h=200;B.side.w=240;B.side.h=560;B.car.w=600;B.car.h=300;
+let css='@keyframes hwf{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}@keyframes lbIn{from{opacity:0;transform:translateX(-16px)}}body.hw .dlg{position:relative;isolation:isolate}body.hw #lbm h2{color:#ff9100;text-shadow:0 0 16px rgba(255,120,0,.6)}#lbTabs{flex-wrap:wrap;justify-content:center;gap:6px;border-radius:24px}#lbTabs>*{flex:0 1 auto;min-width:0;padding:8px 14px;min-height:38px;white-space:nowrap}#lb1 tr{animation:lbIn .45s cubic-bezier(.2,.8,.3,1) both}body.hw #lb1 tr{background:linear-gradient(90deg,rgba(255,120,0,.12),transparent)}';
+for(let i=1;i<=10;i++)css+='#lb1 tr:nth-child('+i+'){animation-delay:'+(i*.05)+'s}';
+for(const k in B)css+='body.hw '+(({hero:'.hero',side:'#side',car:'.car'})[k]||'#'+k+' .dlg')+'::before{content:"";position:absolute;inset:8px 0;z-index:-1;pointer-events:none;border-radius:inherit;background:url("data:image/svg+xml,'+encodeURIComponent(scene(B[k],B[k].w,B[k].h))+'") center/cover no-repeat;animation:hwf 7s ease-in-out infinite}';
+document.head.appendChild(Object.assign(document.createElement('style'),{textContent:css}))})();
+
+$('nki').style.cssText=duIS;
+const nkLbl=()=>{$('nkb').textContent='✏️ '+duL('Мой ник','My nickname')+': '+(regNk()||LS.g('nick','—'))};
+function nkOpen(ch){$('nkt').textContent='🎃 '+(ch?duL('Сменить ник','Change nickname'):duL('Как тебя зовут?','What is your name?'));$('nkp').textContent=duL('Ник виден в таблице лидеров и онлайне','Shown in leaderboards and online');$('nki').value=regNk()||LS.g('nick','');$('nks').textContent=duL('Сохранить','Save');$('nkx').textContent=ch?duL('Отмена','Cancel'):duL('Позже','Later');open('nkm')}
+async function nkRename(n){try{const a=await fbTok();for(const m of ['classic','sprint','boss','bossE','bossH','hw']){const q=await fetch(FB_URL+'/scores/'+m+'/'+a.uid+'.json');const r=q.ok&&await q.json();if(r&&r.n!==n)fetch(FB_URL+'/scores/'+m+'/'+a.uid+'.json?auth='+a.t,{method:'PUT',body:JSON.stringify(Object.assign(r,{n}))}).catch(()=>{})}}catch(e){}}
+$('nks').onclick=async()=>{const n=$('nki').value.replace(BAD,'').trim().slice(0,14);if(n.length<2){toast(tx('nk2'));return}
+ if(FBON()&&n!==regNk()){try{if(!(await regNick(n))){toast(tx('taken'));return}}catch(e){toast(tx('fail'));return}const old=regNk();LS.s('nickReg',n);LS.s('nick',n);if(old)nkRename(n)}else LS.s('nick',n);
+ close($('nkm'));nkLbl();toast('✅ '+n)};
+$('nkb').onclick=()=>nkOpen(1);nkLbl();
+if(FBON()&&!regNk()&&!LS.g('nkAsked',0)){LS.s('nkAsked',1);const nkT=setInterval(()=>{if(!$('dev').classList.contains('show')){clearInterval(nkT);nkOpen(0)}},800)}
 if(!SHP.some(q=>q[0]===shp)){shp='c';LS.s('shape','c')}
 setDev(dev,false);applyLang();pick('polina');requestAnimationFrame(loop);
 </script>
