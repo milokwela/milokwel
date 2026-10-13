@@ -418,6 +418,33 @@ body.hw .dlg{border-color:rgba(255,145,0,.45);box-shadow:0 0 44px -12px rgba(255
 <div class="ov" id="cr"><div class="dlg who"><div class="av" style="--k:#ff80ab">М</div><h2 data-i="crt"></h2><p id="crr2"></p><p id="crx3"></p><p><b id="crv"></b></p><a class="lkb" id="lkb" target="_blank" rel="noopener"></a><p class="lkt" id="lkt"></p><div class="crw">MiloKWel</div><div class="btns"><button class="btn" data-x data-i="ok"></button></div></div></div>
 
 <script>
+  // ==================== ЗАЩИТА ОТ ВЫЛЕТОВ ====================
+// 1. Аварийный сброс по ссылке: полиночка.рус/?reset
+if (window.location.search.includes('reset')) {
+  localStorage.clear();
+  window.location.href = window.location.pathname;
+}
+
+// 2. Если игра упала — покажет кнопку починки прямо на экране
+window.onerror = function() {
+  if (document.getElementById('crash-box')) return;
+  const box = document.createElement('div');
+  box.id = 'crash-box';
+  box.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(15,10,18,0.96);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-family:sans-serif;text-align:center;padding:20px;';
+  box.innerHTML = `
+    <h2 style="color:#ff80ab;font-size:26px;margin:0 0 10px">Что-то пошло не так 💔</h2>
+    <p style="opacity:0.8;font-size:14px;max-width:300px;margin:0 0 20px">Произошёл сбой настроек или старого кэша.</p>
+    <button id="repair-btn" style="background:#ff80ab;color:#1a0008;border:0;border-radius:100px;padding:14px 28px;font-size:16px;font-weight:700;cursor:pointer">Починить и запустить 🛠</button>
+  `;
+  document.body.appendChild(box);
+  document.getElementById('repair-btn').onclick = function() {
+    localStorage.removeItem('skin');
+    localStorage.removeItem('shape');
+    localStorage.removeItem('saw');
+    location.reload();
+  };
+};
+// ===========================================================
 var REL=Date.UTC(2026,9,16,8,0,0),RELM=REL+6e4,tst=false;try{tst=localStorage.getItem('hwtst')==='1'}catch(e){}
 var relD=function(){return tst||Date.now()>=RELM};
 
