@@ -410,7 +410,6 @@ body.ingame #hwd{display:none}
   <div class="set"><label data-i="lang"></label><div class="seg" id="sgLang"></div></div>
   <div class="set"><label data-i="dev"></label><button class="ib" id="chdev" style="width:100%"></button></div>
   <div class="set"><label data-i="gfx"></label><div class="seg" id="sgGfx"></div></div>
-  <div class="set"><label id="fpl"></label><div class="seg" id="sgFps"></div></div>
   <div class="set"><label><span id="m1l"></span><span id="v1"></span></label><input type="range" id="s1" min="1" max="10" step="1"></div>
   <div class="set"><label><span data-i="m2"></span><span id="v2"></span></label><input type="range" id="s2" min="0.8" max="2.5" step="0.1"></div>
   <div class="set"><label id="thl"></label><div class="seg slide" id="sgTh"></div></div>
@@ -999,7 +998,7 @@ function hwFx(dt){const T=tN,a=(T*14)%W,b=(T*9)%W;x.globalAlpha=.55;x.drawImage(
  if(dev!=='phone'){for(let k=0;k<3;k++)batAt(((T*50+k*230)%(W+80))-40,H*.12+k*40+Math.sin(T*2+k)*14,T+k,.62)}
  hwLt-=dt;if(hwLt<0){hwL=.35;hwLt=9+Math.random()*10}if(hwL>0){x.fillStyle='rgba(200,180,255,'+hwL*.35+')';x.fillRect(0,0,W,H);hwL-=dt}}
 function loop(now){try{loop2(now)}catch(e){console.error(e);items=items.filter(i=>i&&isFinite(i.x)&&isFinite(i.y));parts=parts.filter(i=>i&&isFinite(i.x));bul=bul.filter(i=>i&&isFinite(i.x))}requestAnimationFrame(loop)}
-function loop2(now){if(now-last<(fpsMax?0:14))return
+function loop2(now){if(now-last<(document.body.classList.contains('phone')?14:0))return
  const raw=(now-last)/1000,dt=paused?0:Math.min(raw,.05);last=now;tN=now/1000;
  if(run&&!paused&&!low&&!document.hidden&&raw<.5){fT+=raw;fN++;if(fT>=3){const f=fN/fT;fT=0;fN=0;fBad=f<30?fBad+1:0;if(fBad>=2){fBad=0;setGfx('low');toast(tx('auto'))}}}else if(!run){fT=0;fN=0;fBad=0}
  const o=CH[cur],sp=isB()?1:gsp,gs=((cur==='igor'&&eff>0)?.35:1)*sp,light=document.documentElement.dataset.theme==='light'&&!hwC;
@@ -1192,9 +1191,6 @@ const cl=b=>{const s=b.textContent,n=s.replace(/^[^\p{L}\p{N}]+/u,'');if(n!==s)b
 const sy=e=>e.style.setProperty('--p',((e.value-e.min)/(e.max-e.min)*100)+'%');
 ['s1','s2'].forEach(id=>$(id).addEventListener('input',e=>sy(e.target)));
 setInterval(()=>{if($('set').classList.contains('show'))['s1','s2'].forEach(id=>sy($(id)))},300)})();
-let fpsMax=LS.g('fpsmax',1)?1:0;
-$('fpl').textContent=duL('Частота кадров','Frame rate');
-{const mvF=mkTabs($('sgFps'),['60 FPS',duL('Максимум','Max')],k=>{fpsMax=k?1:0;LS.s('fpsmax',k?1:0)});setTimeout(()=>mvF(fpsMax),160)}
 if(!SHP.some(q=>q[0]===shp)){shp='c';LS.s('shape','c')}
 setDev(dev,false);applyLang();pick('polina');requestAnimationFrame(loop);
 </script>
