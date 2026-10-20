@@ -388,7 +388,8 @@ body.phone .mdt b{font-size:15px}
 .pfav img{width:100%;height:100%;object-fit:cover}
 .pfn{font:800 24px/1.2 Roboto,sans-serif;color:var(--pri)}
 .pfact{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}
-.pfact .btn{min-height:0;padding:8px 14px;font-size:13px;border-radius:14px}
+.pfact .btn{min-height:0;padding:8px 14px;font-size:13px;border-radius:14px;display:inline-flex;align-items:center;gap:6px}
+.pfact .btn svg{width:16px;height:16px}
 .lba{width:28px;height:28px;border-radius:50%;object-fit:cover;vertical-align:-8px;margin-right:8px;box-shadow:0 0 0 2px rgba(255,255,255,.65),0 2px 8px rgba(0,0,0,.4);filter:brightness(1.12) contrast(1.06) saturate(1.05)}
 .lbi{width:28px;height:28px;border-radius:50%;display:inline-block;vertical-align:-8px;margin-right:8px;background:hsl(var(--h) 52% 40%);color:#fff;font:700 14px/28px Roboto,sans-serif;text-align:center;box-shadow:0 0 0 2px rgba(255,255,255,.35)}
 #pfTk .tkr{margin:6px 0}
@@ -423,7 +424,26 @@ body #set .sgb{min-height:36px;padding:7px 4px;font-size:13px}
 body #set .ib{padding:10px 12px;font-size:13px;border-radius:16px;min-height:0}
 body #set input[type=range]{height:26px}
 body #set .btns .btn{padding:12px 18px}
-body.phone #set .dlg{grid-template-columns:1fr}
+body.phone #set .dlg{grid-template-columns:1fr 1fr}
+body #set .set:has(input[type=range]){grid-column:1/-1}
+body.phone .hero{padding:10px 10px 8px}
+body.phone h1{font-size:clamp(34px,12vw,56px);letter-spacing:-1px;line-height:1.15}
+body.phone .hero .chip,body.phone .hero .vr{display:none}
+body.phone .sub{font-size:12px;min-height:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:2px 0 0}
+body.phone .hwban{padding:8px 10px;font-size:13px;border-radius:16px;margin:0 0 8px}
+body.phone #sgMode{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:6px;padding:2px;scrollbar-width:none}
+body.phone #sgMode::-webkit-scrollbar{display:none}
+body.phone .mdt{flex:0 0 30%;min-width:102px;scroll-snap-align:center;padding:9px 4px 8px;border-radius:18px;gap:3px}
+body.phone .mdt .mi{width:20px;height:20px}
+body.phone .mdt b{font-size:12px}
+body.phone .mdt small{font-size:10px}
+body.phone .mdesc{font-size:12px;margin:2px 0}
+body.phone .minfo{font-size:12px;padding:6px 8px;max-width:none;margin:4px 0 0;gap:6px}
+body.phone .minfo .btn{padding:4px 10px;min-height:0;font-size:12px}
+body.phone .car{padding:0}
+body.phone .cin{padding:16px 10px 14px;border-radius:24px}
+body.phone .av{width:72px;height:72px;font-size:32px}
+body.phone .sc{padding:12px calc(50% - var(--cw)/2) 14px}
 .ov .dlg{transition:transform .28s cubic-bezier(.2,.9,.3,1.15),opacity .22s ease}
 .ov.show .dlg{transform:none}
 #spl .sps{position:absolute;width:6px;height:6px;border-radius:50%;background:#fff;box-shadow:0 0 10px 2px rgba(255,45,120,.8);opacity:0;animation:splTw 2.2s ease-in-out infinite}
@@ -528,7 +548,7 @@ body.phone #set .dlg{grid-template-columns:1fr}
 <div class="ov" id="hw"><div class="dlg who"><h2 class="hwh" id="hwh"></h2><p class="note" id="hwp"></p><div class="hwt" id="hwc"></div><div class="soonc" id="hwx"></div><a class="maxb" id="maxl" target="_blank" rel="noopener"></a><div class="btns"><button class="btn t" data-x id="hwcl"></button></div></div></div>
 <div class="ov" id="nw"><div class="dlg who"><h2 id="nwt"></h2><p id="nwp"></p><ul id="nwl"></ul><div class="btns"><button class="btn" data-x data-i="ok"></button></div></div></div>
 <div class="ov" id="bgm"><div class="dlg who"><h2 id="bgt"></h2><textarea id="bgi" maxlength="200" rows="3"></textarea><button class="btn" id="bgs"></button><div id="bglist"></div><div class="btns"><button class="btn t" data-x id="bgx"></button></div></div></div>
-<div class="ov" id="prof"><div class="dlg who"><h2 id="pft"></h2><div id="pfb"></div><div class="btns"><button class="btn t" data-x id="pfx"></button></div></div></div>
+<div class="ov" id="prof"><div class="dlg who"><h2 id="pft"></h2><div class="seg" id="pfSeg" style="margin:2px 0 10px"></div><div id="pfb"></div><div class="btns"><button class="btn t" data-x id="pfx"></button></div></div></div>
 <div class="ov" id="tut"><div class="dlg who"><div class="tutw"><div class="tuta" id="tuta"></div><p class="tutt" id="tutt"></p><div class="tutp"><i id="tutpi"></i></div></div><div class="btns"><button class="btn t" id="tutx" data-i="tskip"></button><button class="btn" id="tuto" data-i="tready"></button></div></div></div>
 <div class="ov" id="cr"><div class="dlg who"><div class="av" style="--k:#ff80ab">М</div><h2 data-i="crt"></h2><p id="crr2"></p><p id="crx3"></p><p><b id="crv"></b></p><div class="lkr"><button class="lkb" id="lkb"></button><button class="lkb bgb" id="bgb"></button></div><p class="lkt" id="lkt"></p><div class="crw">MiloKWel</div><div class="btns"><button class="btn" data-x data-i="ok"></button></div></div></div>
 
@@ -1455,9 +1475,14 @@ pfRecs=(r,t)=>PFM.filter(m=>r&&r[m[0]]).map(m=>pfRow(duL(m[1],m[2]),r[m[0]],t&&t
 pfTile=(v,l)=>'<div class="pft"><b>'+v+'</b><small>'+l+'</small></div>';
 function profOpen(){$('pft').textContent=duL('Мой профиль','My profile');$('pfx').textContent=duL('Закрыть','Close');pfV=0;achCheck();pfDraw();pfTopLoad()}
 function pfDraw(){const b=$('pfb'),me=regNk()||LS.g('nick','—'),cl=LS.g('ach',[]);
- if(pfV===1){b.innerHTML='<button class="btn t" id="pfBk" style="width:100%;margin-bottom:8px">'+duL('← Назад','← Back')+'</button>'+ACH.map(a=>{const ok=a[5](),got=cl.includes(a[0]);return '<div class="shr" style="padding:10px 12px"><div class="shi"><b>'+duL(a[1],a[2])+'</b><small>'+duL(a[3],a[4])+'</small></div><button class="shp'+(got||!ok?' own':'')+'" '+(ok&&!got?'data-claim="'+a[0]+'"':'disabled')+' style="min-width:0;padding:8px 12px;font-size:13px">'+(got?'✓':ok?duL('Забрать','Claim')+' '+rwT(a):rwT(a))+'</button></div>'}).join('');return}
+ const PFC={cam:IC('<path d="M-8-3H-5L-3.5-6H3.5L5-3H8V6H-8Z"/><circle r="2.6"/>'),trash:IC('<path d="M-5-6H5M-3.5-6V-8H3.5V-6M-4-6L-3 7H3L4-6M-1.2-3V4M1.2-3V4"/>')};
+ const sg=$('pfSeg');if(sg)sg.style.display=pfV===2?'none':'';
  if(pfV===2){const o=pfSr;b.innerHTML='<button class="btn t" id="pfBk" style="width:100%;margin-bottom:8px">'+duL('← Назад','← Back')+'</button>'+(o&&o.n?'<div style="text-align:center"><div class="pfa">'+(o.av&&String(o.av).indexOf('data:image')===0?'<img src="'+o.av+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%">':duEsc((o.n[0]||'?').toUpperCase()))+'</div><div style="font:800 24px Roboto,sans-serif;color:var(--pri)">'+duEsc(o.n)+'</div></div><div class="note" id="pfSoc" style="margin:6px 0 2px"></div><div class="pfact" style="justify-content:center"><button class="btn t" id="pfFr"></button></div><div class="pfg">'+pfTile(o.a==='—'?'—':o.a+'/'+ACH.length,duL('достижения','achievements'))+pfTile(o.h==='—'?'—':o.h+duL(' ч',' h'),duL('в игре','played'))+pfTile((o.t||[]).length,'TOP 1')+'</div><h3 style="margin:10px 0 4px">'+duL('Рекорды','Records')+'</h3>'+pfRecs(o.r,o.t):'<div class="note">'+duL('Игрок не найден или скрыл профиль','Player not found or profile hidden')+'</div>');if(o&&o.n)loadSocial(o);return}
- b.innerHTML='<div class="pfh"><div class="pfav">'+(LS.g('av','')?'<img src="'+LS.g('av','')+'" alt="">':duEsc((me[0]||'?').toUpperCase()))+'</div><div><div class="pfn">'+duEsc(me)+'</div><div class="note">'+(dev==='phone'?tx('ph'):tx('pc'))+' · '+(LS.g('phide',0)?duL('Профиль скрыт','Profile hidden'):duL('Профиль виден','Profile visible'))+'</div></div></div><div class="pfact"><button class="btn t" id="pfUp">📷 '+duL('Фото','Photo')+'</button><button class="btn t" id="pfRm" title="'+duL('Убрать фото','Remove photo')+'">🗑</button><button class="btn t" id="pfN">'+duL('Сменить ник','Change nickname')+'</button><button class="btn t" id="pfH">'+(LS.g('phide',0)?duL('Показать профиль','Show profile'):duL('Скрыть профиль','Hide profile'))+'</button></div><h3 style="margin:2px 0 4px">'+duL('📋 Задания дня','📋 Daily tasks')+'</h3><div id="pfTk"></div><h3 style="margin:10px 0 4px">'+duL('Друзья','Friends')+'</h3><div id="pfFrL"></div><h3 style="margin:10px 0 4px">'+duL('Кто с тобой играл','Who played with you')+'</h3><div id="pfOpL"></div><div class="pfg">'+pfTile(achOn().length+'/'+ACH.length,duL('достижения','achievements'))+pfTile(pfHrs(+LS.g('ptime',0)),duL('в игре','played'))+pfTile((pfTop||[]).length,'TOP 1')+pfTile(crowns|0,duL('короны','crowns'))+pfTile(stz|0,duL('звёзды','stars'))+pfTile(pump|0,duL('тыквы','pumpkins'))+'</div><h3 style="margin:10px 0 4px">'+duL('Рекорды','Records')+'</h3>'+pfRecs(bests,pfTop)+'<div class="lkr"><button class="lkb" id="pfA">'+duL('Достижения','Achievements')+'</button></div><h3 style="margin:12px 0 4px">'+duL('Профиль игрока','Player profile')+'</h3><div style="display:flex;gap:8px"><input id="pfS" maxlength="14" placeholder="'+duL('Точный ник','Exact nickname')+'" style="'+duIS+';margin:0;flex:1"><button class="shp" id="pfG">'+duL('Найти','Find')+'</button></div>';fillTasks();fillFriends();fillOpponents()}
+ seg(sg,[[0,duL('Я','Me')],[3,duL('Задания','Tasks')],[4,duL('Друзья и матчи','Friends & matches')],[1,duL('Достижения','Achievements')]],pfV,v=>{pfV=v;pfDraw()});
+ if(pfV===1){b.innerHTML=ACH.map(a=>{const ok=a[5](),got=cl.includes(a[0]);return '<div class="shr" style="padding:10px 12px"><div class="shi"><b>'+duL(a[1],a[2])+'</b><small>'+duL(a[3],a[4])+'</small></div><button class="shp'+(got||!ok?' own':'')+'" '+(ok&&!got?'data-claim="'+a[0]+'"':'disabled')+' style="min-width:0;padding:8px 12px;font-size:13px">'+(got?'✓':ok?duL('Забрать','Claim')+' '+rwT(a):rwT(a))+'</button></div>'}).join('');return}
+ if(pfV===3){b.innerHTML='<div id="pfTk"></div>';fillTasks();return}
+ if(pfV===4){b.innerHTML='<h3 style="margin:2px 0 4px">'+duL('Друзья','Friends')+'</h3><div id="pfFrL"></div><h3 style="margin:10px 0 4px">'+duL('Кто с тобой играл','Who played with you')+'</h3><div id="pfOpL"></div><h3 style="margin:10px 0 4px">'+duL('Профиль игрока','Player profile')+'</h3><div style="display:flex;gap:8px"><input id="pfS" maxlength="14" placeholder="'+duL('Точный ник','Exact nickname')+'" style="'+duIS+';margin:0;flex:1"><button class="shp" id="pfG">'+duL('Найти','Find')+'</button></div>';fillFriends();fillOpponents();return}
+ b.innerHTML='<div class="pfh"><div class="pfav">'+(LS.g('av','')?'<img src="'+LS.g('av','')+'" alt="">':duEsc((me[0]||'?').toUpperCase()))+'</div><div><div class="pfn">'+duEsc(me)+'</div><div class="note">'+(dev==='phone'?tx('ph'):tx('pc'))+' · '+(LS.g('phide',0)?duL('Профиль скрыт','Profile hidden'):duL('Профиль виден','Profile visible'))+'</div></div></div><div class="pfact"><button class="btn t" id="pfUp">'+PFC.cam+' '+duL('Фото','Photo')+'</button><button class="btn t" id="pfRm" title="'+duL('Убрать фото','Remove photo')+'">'+PFC.trash+'</button><button class="btn t" id="pfN">'+duL('Сменить ник','Change nickname')+'</button><button class="btn t" id="pfH">'+(LS.g('phide',0)?duL('Показать профиль','Show profile'):duL('Скрыть профиль','Hide profile'))+'</button></div><div class="pfg">'+pfTile(achOn().length+'/'+ACH.length,duL('достижения','achievements'))+pfTile(pfHrs(+LS.g('ptime',0)),duL('в игре','played'))+pfTile((pfTop||[]).length,'TOP 1')+pfTile(crowns|0,duL('короны','crowns'))+pfTile(stz|0,duL('звёзды','stars'))+pfTile(pump|0,duL('тыквы','pumpkins'))+'</div><h3 style="margin:10px 0 4px">'+duL('Рекорды','Records')+'</h3>'+pfRecs(bests,pfTop)}
 $('pfb').onclick=async e=>{const c=e.target.closest('[data-claim]');if(c){achClaim(c.dataset.claim);return}
  const op=e.target.closest('[data-op]');if(op){openProf(op.dataset.op);return}
  if(e.target.closest('#pfN')){close($('prof'));nkOpen(1)}else if(e.target.closest('#pfUp')){avIn.click()}else if(e.target.closest('#pfRm')){LS.s('av','');avC.t=0;pfPublish();pfDraw()}else if(e.target.closest('#pfA')){pfV=1;pfDraw()}else if(e.target.closest('#pfBk')){pfV=0;pfDraw()}
